@@ -1,0 +1,11 @@
+{
+  "name": "financialsocialnet",
+  "version": "1.0.0",
+  "description": "A social network aimed at connecting financial professionals",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "author": "yoan yomba",
+  "license": "ISC"
+}

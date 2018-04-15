@@ -1,0 +1,105 @@
+extends layout
+
+block content
+    .container-fluid
+        .row
+            .col-sm-8
+                h2 Our Pillars
+                br
+                h3
+                    | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                br
+                p
+                    | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                br
+                button.btn.btn-default.btn-lg Get in Touch
+            .col-sm-4
+                span.glyphicon.glyphicon-signal.logo
+    .container-fluid.bg-grey
+        .row
+            .col-sm-4.slideanim.slide
+                span.glyphicon.glyphicon-globe.logo
+            .col-sm-8
+                h2 Our Values
+                br
+                h3
+                    strong MISSION:
+                    |  Our mission lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                br
+                p
+                    strong VISION:
+                    |  Our vision Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    |       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    #services.container-fluid.text-center
+        h2 SERVICES
+        br
+        .row.slideanim.slide
+            .col-sm-4
+                span.glyphicon.glyphicon-off.logo-small
+                h4 POWER
+                p Lorem ipsum dolor sit amet..
+            .col-sm-4
+                span.glyphicon.glyphicon-heart.logo-small
+                h4 LOVE
+                p Lorem ipsum dolor sit amet..
+            .col-sm-4
+                span.glyphicon.glyphicon-lock.logo-small
+                h4 JOB DONE
+                p Lorem ipsum dolor sit amet..
+        br
+        br
+        .row.slideanim.slide
+            .col-sm-4
+                span.glyphicon.glyphicon-leaf.logo-small
+                h4 GREEN
+                p Lorem ipsum dolor sit amet..
+            .col-sm-4
+                span.glyphicon.glyphicon-certificate.logo-small
+                h4 CERTIFIED
+                p Lorem ipsum dolor sit amet..
+            .col-sm-4
+                span.glyphicon.glyphicon-wrench.logo-small
+                h4(style='color:#303030;') HARD WORK
+                p Lorem ipsum dolor sit amet..
+    #users.container-fluid.text-center.bg-light
+        h2 What our users are saying
+        #myCarousel.carousel.slide.text-center(data-ride='carousel')
+            // Indicators
+            ol.carousel-indicators
+                li.active(data-target='#myCarousel', data-slide-to='0')
+                li(data-target='#myCarousel', data-slide-to='1')
+                li(data-target='#myCarousel', data-slide-to='2')
+            // Wrapper for slides
+            .carousel-inner(role='listbox')
+                .item.active
+                    h4
+                        | "This company is the best. I am so happy with the result!"
+                        br
+                        span Michael Roe, Vice President, Comment Box
+                .item
+                    h4
+                        | "One word... WOW!!"
+                        br
+                        span John Doe, Salesman, Rep Inc
+                .item
+                    h4
+                        | "Could I... BE any more happy with this company?"
+                        br
+                        span Chandler Bing, Actor, FriendsAlot
+            // Left and right controls
+            a.left.carousel-control(href='#myCarousel', role='button', data-slide='prev')
+                span.glyphicon.glyphicon-chevron-left(aria-hidden='true')
+                span.sr-only Previous
+            a.right.carousel-control(href='#myCarousel', role='button', data-slide='next')
+                span.glyphicon.glyphicon-chevron-right(aria-hidden='true')
+                span.sr-only Next
+        
+    .container
+        br
+        h1(class="text-center") #{title}
+        hr
+        ul.list-group
+            each article, i in articles
+                li.list-group-item 
+                    a(href='/article/'+article._id) #{article.title}
+                    

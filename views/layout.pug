@@ -1,0 +1,50 @@
+doctype html
+html
+    head
+        title Financial social network
+        link(rel = 'stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
+        link(rel = 'stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
+        link(rel = 'stylesheet' href='/css/style.css')
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+        link(href='https://fonts.googleapis.com/css?family=Montserrat', rel='stylesheet', type='text/css')
+        link(href='https://fonts.googleapis.com/css?family=Lato', rel='stylesheet', type='text/css')
+        
+    body
+        .container
+            header.blog-header.py-3
+                .row.flex-nowrap.justify-content-between.align-items-center
+                    .col-4.pt-1
+                        a.text-muted(href='#') Subscribe
+                    .col-4.text-center
+                        h4.blog-header-logo.text-dark(href='/') Fin-Social
+                    .col-4.d-flex.justify-content-end.align-items-center
+                        a.text-muted(href='#')
+                            svg.mx-3(xmlns='http://www.w3.org/2000/svg', width='20', height='20', viewbox='0 0 24 24', fill='none', stroke='currentColor', stroke-width='2', stroke-linecap='round', stroke-linejoin='round')
+                                circle(cx='10.5', cy='10.5', r='7.5')
+                                line(x1='21', y1='21', x2='15.8', y2='15.8')
+                        a.btn.btn-sm.btn-outline-secondary(href='#') Sign up
+                        a.btn.btn-sm.btn-outline-secondary(href='#') Log In
+            .nav-scroller.py-1.mb-2
+                nav.nav.navbar.navbar.d-flex.justify-content-between
+                    a.p-2.text-muted(href='/') Home
+                    a.p-2.text-muted(href='/business') Product
+                    a.p-2.text-muted(href='/markets') Markets
+                    a.p-2.text-muted(href='#') Economy
+                    a.p-2.text-muted(href='#') Commentary
+                    a.p-2.text-muted(href='#') Social
+                    a.p-2.text-muted(href='/article/add') Add Opinion
+            != messages('message', locals)
+            if errors  
+                each error, i in errors
+                    div(class="alert alert-danger") #{error.msg}
+            block content
+            br
+            hr
+            footer
+                p Copyright &copy; 2017
+        script(src='/bower_components/bootstrap/dist/js/boostrap.js')
+        script(src='/bower_components/jquery/dist/jquery.js')
+        script(src='/js/main.js')
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+        

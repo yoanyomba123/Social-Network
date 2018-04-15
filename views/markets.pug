@@ -1,0 +1,25 @@
+extends layout
+        
+block content
+    .container
+        br
+        h1(class="text-center") #{title}
+        hr
+        ul
+            each feed, i in feeds
+                .container-fluid.p-3.p-sm-5.text-black.rounded.bg
+                    .col-sm-8.px-0
+                        h2.display-8.font-italic #{feed.title}
+                        h9.font-italic.text-muted #{feed.pubDate}
+                        hr
+                        p.lead.my-3
+                        br
+                        | #{feed.content}
+                        br
+                        br
+                        p.lead.mb-0
+                        a.text-muted.font-weight-bold(href= feed.link) Continue reading...
+                        br
+                        br
+                        br
+                
