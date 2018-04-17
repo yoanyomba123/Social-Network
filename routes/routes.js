@@ -4,6 +4,13 @@ const mongoose = require('mongoose');
 let Article = require('../models/article');
 
 module.exports = app => {
+
+    // logged in or not
+    app.get('*', function(request, response, next){
+        response.locals.user = request.user || null;
+        next();
+    });
+
     // home route
     app.get('/', function(request, response){
         Article.find({}, function(error, articles){
@@ -107,4 +114,6 @@ module.exports = app => {
             response.send('Success');
         });
     });
+
+
 };

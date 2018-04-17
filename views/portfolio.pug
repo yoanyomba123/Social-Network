@@ -1,0 +1,247 @@
+extends layout
+
+block content
+    h2 Stock Market Search
+    div(ng-controller='autoCompleteController as ctrl', layout='column', ng-cloak='')
+        md-content.md-padding
+            form#searchForm.form-horizontal(ng-submit='$event.preventDefault()', name='registerForm', onsubmit='formHandler(0)', novalidate='')
+                .row
+                    label#stocktickersymbol.col-lg-3.col-md-3.col-sm-12.col-xs-12.control-label(for='stocktickersymbol')
+                        | Enter Stock Ticker Symbol:
+                        span.astrix *
+                    .col-md-6.col-lg-6.col-xs-12.col-sm-12
+                        md-autocomplete(required='', md-input-name='autocompleteField', ng-disabled='ctrl.isDisabled', md-no-cache='ctrl.noCache', md-selected-item='ctrl.selectedItem', md-search-text-change='ctrl.searchTextChange(ctrl.searchText)', md-search-text='ctrl.searchText', md-selected-item-change='ctrl.selectedItemChange(item)', md-items='item in ctrl.querySearch(ctrl.searchText)', md-item-text='item.display', md-require-match='true', placeholder='e.g. AAPL')
+                            md-item-template
+                                span(md-highlight-text='ctrl.searchText', md-highlight-flags='^i') {{item.display}}
+                        br
+                        span.alert.hidden(style='margin: 0px 0px; padding: 0px 0px')
+                            | Please enter a Stock Ticker Symbol
+                    .col-lg-3.col-md-3.col-sm-12.col-xs-12
+                        button#get-quote.btn.btn-primary(type='submit', disabled='')
+                            span.glyphicon.glyphicon-search
+                            | Get Quote
+                        button#clear-quote.btn.btn-default(type='reset', onclick='')
+                            span.glyphicon.glyphicon-refresh
+                            | Clear
+    // HORIZONTAL LINE
+    div
+        hr
+    // DISPLAY
+    .display
+        // CAROUSEL DISPLAY
+        #carousel.carousel.slide(data-interval='false')
+            .carousel-inner
+                // FAVOURITE DISPLAY
+                #fav-tab.item.active
+                    .inner-container.panel.panel-default
+                        .heading-css.panel-heading
+                            p.pull-left(style='padding-top: 5px;')
+                                b Favourite List
+                            span.pull-right
+                                | `		
+                                span.hidden-xs Automatic Refresh:           
+                                input#five-refresh(data-toggle='toggle', type='checkbox')
+                                button.btn.btn-default(onclick='refreshFavourites()')
+                                    span.glyphicon.glyphicon-refresh
+                                span#rmvcursor(style='cursor:not-allowed')
+                                    a#rightslide.right-carousel-control.btn.disabled(href='#carousel', data-slide='next')
+                                        button#right-icon.btn.btn-default(disabled='')
+                                            span.glyphicon.glyphicon-chevron-right
+                        .favourite-row-two.panel-body
+                            .form-horizontal
+                                .form-group
+                                    label.col-md-1.control-label(for='sort-by') Sort By
+                                    .col-md-3
+                                        select#sort-by.form-control
+                                            option Default
+                                            option Symbol
+                                            option Price
+                                            option Change
+                                            option Change Percent
+                                            option Volume
+                                    .col-md-8
+                                        .form-horizontal
+                                            .form-group
+                                                label.col-md-2.control-label(for='sort-by') Order
+                                                .col-md-4
+                                                    select#sort-order.form-control(disabled='')
+                                                        option Ascending
+                                                        option Descending
+                        .favourite-row-three.panel-body
+                            .table-responsive
+                                table#favourite-table.table.table-striped
+                                    thead
+                                        tr
+                                    tbody#tbody
+                                        tr.active
+                                            td
+                                                b Symbol
+                                            td
+                                                b Stock Price
+                                            td
+                                                b Change (Change Percent)
+                                            td
+                                                b Volume
+                                            td
+                // STOCK DISPLAY
+                #stock-tab.item
+                    .inner-container.panel.panel-default
+                        .heading-css.panel-heading
+                            a.left-carousel-control(href='#carousel', role='button', data-slide='prev')
+                                button#left-icon.btn.btn-default.pull-left(onclick='')
+                                    span.glyphicon.glyphicon-chevron-left
+                            p(style='padding-top: 5px;  text-align: center;')
+                                b Stock Details
+                        .panel-body
+                            .stock-buttons
+                                ul.nav.nav-pills
+                                    li.active(role='presentation')
+                                        a(data-toggle='tab', href='#curr')
+                                            span.glyphicon.glyphicon-dashboard
+                                            span.hidden-xs  Current
+                                            |  Stock
+                                    li(role='presentation')
+                                        a(data-toggle='tab', href='#hist')
+                                            span.glyphicon.glyphicon-stats
+                                            span.hidden-xs  Historical
+                                            |  Charts
+                                    li(role='presentation')
+                                        a(data-toggle='tab', href='#news')
+                                            span.glyphicon.glyphicon-link
+                                            |  News
+                                            span.hidden-xs  Feeds
+                            div
+                                hr
+                            .tab-content
+                                #curr.tab-pane.fade.in.active
+                                    .stock-details.col-lg-6.col-md-6.col-sm-12
+                                        .row
+                                            span
+                                                b Stock Details
+                                            button#fb-btn.btn.btn-default.pull-right.disabled(onclick='facebookFeed()', style='width: 40px; height: 34px;')
+                                                img(style='margin-top: -4px; margin-left: -5px;', src='http://cs-server.usc.edu:45678/hw/hw8/images/facebook.png', width='25px', height='25px')
+                                            button#button-star.btn.btn-default.pull-right.disabled(onclick='favStock()')
+                                                span#star-btn.glyphicon.glyphicon-star-empty
+                                        .pad-element
+                                        .row
+                                            #tableProgress.progress
+                                                .progress-bar.progress-bar-striped.progress-bar-animated(role='progressbar', aria-valuenow='50', aria-valuemin='0', aria-valuemax='100', style='width: 50%')
+                                            table#stockTable.table.table-striped.hidden(style='margin-top: 40px;')
+                                                tr
+                                                    th Stock Ticker Symbol
+                                                    td#row1
+                                                tr
+                                                    th Last Price
+                                                    td#row2
+                                                tr
+                                                    th Change (Change Percent)
+                                                    td#row3
+                                                tr
+                                                    th Timestamp
+                                                    td#row4
+                                                tr
+                                                    th Open
+                                                    td#row5
+                                                tr
+                                                    th Close
+                                                    td#row6
+                                                tr
+                                                    th Day's Range
+                                                    td#row7
+                                                tr
+                                                    th Volume
+                                                    td#row8
+                                        #tableError.alert.alert-danger.hidden(style='margin-top: 180px;margin-bottom: 180px;', role='alert')
+                                            | Error ! Failed to get Price data.
+                                    .stock-highcharts.col-lg-6.col-md-6.col-sm-12
+                                        ul#activeX.nav.nav-tabs(role='tablist')
+                                            li.active(role='presentation')
+                                                a(role='tab', data-toggle='tab', href='#priceTab') Price
+                                            li(role='presentation')
+                                                a(role='tab', data-toggle='tab', href='#smaTab') SMA
+                                            li(role='presentation')
+                                                a(role='tab', data-toggle='tab', href='#emaTab') EMA
+                                            li(role='presentation')
+                                                a(role='tab', data-toggle='tab', href='#stochTab') STOCH
+                                            li(role='presentation')
+                                                a(role='tab', data-toggle='tab', href='#rsiTab') RSI
+                                            li(role='presentation')
+                                                a(role='tab', data-toggle='tab', href='#adxTab') ADX
+                                            li(role='presentation')
+                                                a(role='tab', data-toggle='tab', href='#cciTab') CCI
+                                            li(role='presentation')
+                                                a(role='tab', data-toggle='tab', href='#bbandsTab') BBANDS
+                                            li(role='presentation')
+                                                a(role='tab', data-toggle='tab', href='#macdTab') MACD
+                                        .tab-content
+                                            #priceTab.tab-pane.active(role='tabpanel')
+                                                #priceProgress.progress
+                                                    .progress-bar.progress-bar-striped.progress-bar-animated(role='progressbar', aria-valuenow='50', aria-valuemin='0', aria-valuemax='100', style='width: 50%')
+                                                #price
+                                                #priceError.alert.alert-danger.hidden(style='margin-top: 180px;margin-bottom: 180px;', role='alert')
+                                                    | Error ! Failed to get Price data.
+                                            #smaTab.tab-pane(role='tabpanel')
+                                                #smaProgress.progress
+                                                    .progress-bar.progress-bar-striped.progress-bar-animated(role='progressbar', aria-valuenow='50', aria-valuemin='0', aria-valuemax='100', style='width: 50%')
+                                                #sma
+                                                #smaError.alert.alert-danger.hidden(style='margin-top: 150px;margin-bottom: 180px;', role='alert')
+                                                    | Error ! Failed to get SMA data.
+                                            #emaTab.tab-pane(role='tabpanel')
+                                                #emaProgress.progress
+                                                    .progress-bar.progress-bar-striped.progress-bar-animated(role='progressbar', aria-valuenow='50', aria-valuemin='0', aria-valuemax='100', style='width: 50%')
+                                                #ema
+                                                #emaError.alert.alert-danger.hidden(style='margin-top: 150px;margin-bottom: 180px;', role='alert')
+                                                    | Error ! Failed to get EMA data.
+                                            #stochTab.tab-pane(role='tabpanel')
+                                                #stochProgress.progress
+                                                    .progress-bar.progress-bar-striped.progress-bar-animated(role='progressbar', aria-valuenow='50', aria-valuemin='0', aria-valuemax='100', style='width: 50%')
+                                                #stoch
+                                                #stochError.alert.alert-danger.hidden(style='margin-top: 150px;margin-bottom: 180px;', role='alert')
+                                                    | Error ! Failed to get STOCH data.
+                                            #rsiTab.tab-pane(role='tabpanel')
+                                                #rsiProgress.progress
+                                                    .progress-bar.progress-bar-striped.progress-bar-animated(role='progressbar', aria-valuenow='50', aria-valuemin='0', aria-valuemax='100', style='width: 50%')
+                                                #rsi
+                                                #rsiError.alert.alert-danger.hidden(style='margin-top: 150px;margin-bottom: 180px;', role='alert')
+                                                    | Error ! Failed to get RSI data.
+                                            #adxTab.tab-pane(role='tabpanel')
+                                                #adxProgress.progress
+                                                    .progress-bar.progress-bar-striped.progress-bar-animated(role='progressbar', aria-valuenow='50', aria-valuemin='0', aria-valuemax='100', style='width: 50%')
+                                                #adx
+                                                #adxError.alert.alert-danger.hidden(style='margin-top: 150px;margin-bottom: 180px;', role='alert')
+                                                    | Error ! Failed to get ADX data.
+                                            #cciTab.tab-pane(role='tabpanel')
+                                                #cciProgress.progress
+                                                    .progress-bar.progress-bar-striped.progress-bar-animated(role='progressbar', aria-valuenow='50', aria-valuemin='0', aria-valuemax='100', style='width: 50%')
+                                                #cci
+                                                #cciError.alert.alert-danger.hidden(style='margin-top: 150px;margin-bottom: 180px;', role='alert')
+                                                    | Error ! Failed to get CCI data.
+                                            #bbandsTab.tab-pane(role='tabpanel')
+                                                #bbandsProgress.progress
+                                                    .progress-bar.progress-bar-striped.progress-bar-animated(role='progressbar', aria-valuenow='50', aria-valuemin='0', aria-valuemax='100', style='width: 50%')
+                                                #bbands
+                                                #bbandsError.alert.alert-danger.hidden(style='margin-top: 150px;margin-bottom: 180px;', role='alert')
+                                                    | Error ! Failed to get BBANDS data.
+                                            #macdTab.tab-pane(role='tabpanel')
+                                                #macdProgress.progress
+                                                    .progress-bar.progress-bar-striped.progress-bar-animated(role='progressbar', aria-valuenow='50', aria-valuemin='0', aria-valuemax='100', style='width: 50%')
+                                                #macd
+                                                #macdError.alert.alert-danger.hidden(style='margin-top: 150px;margin-bottom: 180px;', role='alert')
+                                                    | Error ! Failed to get MACD data.
+                                #hist.tab-pane.fade.col-md-12.col-sm-12.col-xs-12.col.lg-12
+                                    #histProgress.progress
+                                        .progress-bar.progress-bar-striped.progress-bar-animated(role='progressbar', aria-valuenow='50', aria-valuemin='0', aria-valuemax='100', style='width: 50%')
+                                    #history
+                                    #histError.alert.alert-danger.hidden(role='alert')
+                                        | Error ! Failed to get Historical Charts data.
+                                #news.tab-pane.fade
+                                    #newsProgress.progress
+                                        .progress-bar.progress-bar-striped.progress-bar-animated(role='progressbar', aria-valuenow='50', aria-valuemin='0', aria-valuemax='100', style='width: 50%')
+                                    #newsWells.hidden
+                                        #well0.well
+                                        #well1.well
+                                        #well2.well
+                                        #well3.well
+                                        #well4.well
+                                    #newsError.alert.alert-danger.hidden(style='margin-top: 180px;margin-bottom: 180px;', role='alert')
+                                        | Error ! Failed to get News data.

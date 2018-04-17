@@ -1,18 +1,27 @@
 // imports
+const passport = require('passport');
 const mongoose = require('mongoose');
 const express = require('express');
 const path = require('path');
-const bodyParser = require('body-parser');
 const keys = require('./config/keys');
+const database = require('./config/database');
 const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
+var cors = require("cors");
+var bodyParser = require("body-parser");
+var request = require("request");
+var parseString = require('xml2js').parseString;
+
 
 // initialize app
 const app = express();
 
+// make use of cors module
+app.use(cors());
+
 // connect to my database
-mongoose.connect(keys.MONGO_URI);
+mongoose.connect(database.database);
 // define db connection
 let db = mongoose.connection;
 
@@ -71,11 +80,19 @@ app.use(expressValidator({
     }
 }));
 
+// passport config
+require('./config/passport')(passport);
+// passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 // make use of routes
 require('./routes/routes')(app);
 require('./routes/business')(app);
 require('./routes/rssroutes')(app);
+require('./routes/users')(app);
+require('./routes/LoggedIn/Portfolio')(app);
+
 
 
 // load view engines
@@ -84,6 +101,6 @@ app.set('view engine', 'pug');
  
 
 // define server port
-const PORT = process.env.PORT || 1000;
+const PORT = process.env.PORT || 1001;
 // start sever
 app.listen(PORT);
