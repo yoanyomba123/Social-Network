@@ -1,0 +1,22 @@
+extends layout
+        
+block content
+    each feed, i in feeds  
+        for block in feed.items   
+            container-fluid.p-3.p-sm-5.text-black.rounded.bg.slidefeed.card
+                .col-sm-8.px-0
+                    h2.display-8.font-italic #{block.title}
+                    br
+                    br
+                    h9.font-italic.text-muted #{block.pubDate}
+                    hr
+                    p.lead.my-3
+                    br
+                    |#{block.contentSnippet}
+                    br
+                    br
+                    p.lead.mb-0
+                    a.text-muted.font-weight-bold(href= block.link) Continue reading...
+                    br
+                    br
+                    br

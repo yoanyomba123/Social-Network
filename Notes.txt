@@ -1,0 +1,18 @@
+Social Network Project Plan
+
+Step 1.
+    Backend Architecture Development
+    - Login & Logout Functionality
+Step 2.
+    Front End Architecture Development
+    * MAIN
+        - Landing Page
+        - About Us
+        - RSS Feeds & Markets
+        - RSS Feeds & World Economics
+        - RSS Feeds & Fund Reports & Fed Stuff
+        - RSS Feeds & Global Markets News 
+    * LOGGEDIN
+        - Landing Page
+        - Navigation bar
+

@@ -101,6 +101,6 @@ app.set('view engine', 'pug');
  
 
 // define server port
-const PORT = process.env.PORT || 1001;
+const PORT = process.env.PORT || 8000;
 // start sever
 app.listen(PORT);

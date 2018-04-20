@@ -158,8 +158,8 @@ footer .glyphicon {
 .slide {
     animation-name: slide;
     -webkit-animation-name: slide;
-    animation-duration: 10.5s;
-    -webkit-animation-duration: 10.5s;
+    animation-duration: 3.5s;
+    -webkit-animation-duration: 3.5s;
     visibility: visible;
 }
 @keyframes slide {

@@ -1,26 +1,81 @@
 const Parser = require('rss-parser');
-let parser = new Parser();
-const mongoose = require('mongoose');
+let parser = new Parser({
+    customFields: {
+    feed: ['otherTitle', 'extendedDescription'],
+    item: ['coAuthor','subtitle'],
+  }});
 
+let ortoo_parse = require('ortoo-feedparser');
+let async = require('async');
+const mongoose = require('mongoose');
+const rsscontent = require('../config/rssfeeds');
+let fetch = require('isomorphic-fetch');
 // bring in model class
 let Article = require('../models/article');
 var businessrsslist = ['http://www.wsj.com/xml/rss/3_7031.xml'];
-var feedcontent = [];
+
+// acquiring actualy feed ursl
+let financeurls = rsscontent.Finance;
+let economicsurls = rsscontent.Econonmics;
+let blogurls = rsscontent.Blogs;
+let socialurls = rsscontent.Social;
+let filingsurls = rsscontent.MutualFundFilings;
+
+// define a function to get feeds
+
+
 module.exports = app => {
     // home route
     app.get('/markets', function(request, response){
-        for(var i =0; i < businessrsslist.length; i++){
-            var data = parser.parseURL(businessrsslist[i], function(error,feed) {
-                console.log(feed.items[0])
-                /*
-                feed.items.forEach(function(entry) {
-                    //console.log(entry.title);
-                });
-                */
+        Promise.all(financeurls.map(url => fetch(url).then(resp => parser.parseURL(url))
+            )).then(texts => {
                 response.render('markets', {
-                    feeds: feed.items
-                });
+                    feeds: texts
+                })   
             });
-        }
+
     });
+
+    app.get('/economics', function(request, response){
+        Promise.all(economicsurls.map(url => fetch(url).then(resp => parser.parseURL(url))
+            )).then(texts => {
+                response.render('economics', {
+                    feeds: texts
+                })   
+            });
+
+    });
+
+    app.get('/opinions', function(request, response){
+        Promise.all(blogurls.map(url => fetch(url).then(resp => parser.parseURL(url))
+            )).then(texts => {
+                response.render('commentary', {
+                    feeds: texts
+                })   
+            });
+
+    });
+
+    app.get('/social', function(request, response){
+        Promise.all(socialurls.map(url => fetch(url).then(resp => parser.parseURL(url))
+            )).then(texts => {
+                console.log(texts[1].items[1].content);
+                response.render('social', {
+                    feeds: texts
+                })   
+            });
+        });
+    
+    app.get('/filings', function(request, response){
+        Promise.all(filingsurls.map(url => fetch(url).then(resp => parser.parseURL(url))
+            )).then(texts => {
+                console.log(texts[1]);
+                
+                response.render('filings', {
+                    feeds: texts
+                })
+                   
+            });
+        });
+  
 };

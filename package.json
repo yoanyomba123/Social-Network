@@ -4,8 +4,33 @@
   "description": "A social network aimed at connecting financial professionals",
   "main": "index.js",
   "scripts": {
+    "priviledges": "sudo node index.js",
     "dev": "nodemon index.js"
   },
   "author": "yoan yomba",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.2",
+    "connect-flash": "^0.1.1",
+    "cors": "^2.8.4",
+    "es6-promise": "^4.2.4",
+    "express": "^4.16.3",
+    "express-messages": "^1.0.1",
+    "express-session": "^1.15.6",
+    "express-validator": "^5.1.2",
+    "feed-read": "0.0.1",
+    "isomorphic-fetch": "^2.2.1",
+    "mongoose": "^5.0.15",
+    "nodemon": "^1.17.3",
+    "ortoo-feedparser": "^0.11.0",
+    "package-lock.json": "^1.0.0",
+    "package.json": "^2.0.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
+    "request": "^2.85.0",
+    "rss-parser": "^3.1.2",
+    "xml2js": "^0.4.19"
+  }
 }
