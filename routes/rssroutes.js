@@ -26,6 +26,11 @@ let filingsurls = rsscontent.MutualFundFilings;
 
 module.exports = app => {
     // home route
+    app.get('/', function(request, response){
+        response.render('index');
+    });
+
+
     app.get('/markets', function(request, response){
         Promise.all(financeurls.map(url => fetch(url).then(resp => parser.parseURL(url))
             )).then(texts => {
