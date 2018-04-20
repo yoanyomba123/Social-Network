@@ -16,7 +16,7 @@ html
             header.blog-header.py-3
                 .row.flex-nowrap.justify-content-between.align-items-center
                     .col-4.pt-1
-                        a.text-muted(href='#') Subscribe
+                        a.text-muted(href='#')
                     .col-4.text-center
                         h1.blog-header-logo.text-dark(href='/') Fin-Social
                     .col-4.d-flex.justify-content-end.align-items-center
@@ -33,9 +33,16 @@ html
             .nav-scroller.py-1.mb-2
                 nav.nav.navbar.navbar.d-flex.justify-content-between
                     if user
-                        a.p-2.text-muted(href='/Loggedin/portfolio') Portfolio
+                        a.p-2.text-muted(href='/#') Home Feed
+                        a.p-2.text-muted(href='/#') My Profile
+                        a.p-2.text-muted(href='/Loggedin/portfolio') My Portfolio
                         a.p-2.text-muted(href='/Document') Documents
                         a.p-2.text-muted(href='#') Insights
+                        a.nav-link.dropdown-toggle(data-toggle='dropdown', href='#', role='button', aria-haspopup='true', aria-expanded='false') Dropdown
+                            div.dropdown-menu
+                                a.dropdown-item(href='#') Action
+                                a.dropdown-item(href='#') Another action
+                                a.dropdown-item(href='#') Something else here
                     else
                         a.p-2.text-muted(href='/') Home
                         a.p-2.text-muted(href='/business') Product
@@ -44,7 +51,7 @@ html
                         a.p-2.text-muted(href='/opinions') Commentary
                         a.p-2.text-muted(href='/filings') Fund Filings
                         a.p-2.text-muted(href='/social') Social
-                        a.p-2.text-muted(href='/article/add') Add Opinion
+                        //a.p-2.text-muted(href='/article/add') Add Opinion
             != messages('message', locals)
             if errors  
                 each error, i in errors
@@ -52,9 +59,9 @@ html
             block content
             br
             footer
-                br
-                br
-                p Copyright &copy; 2017
+            br
+            br
+            //p Copyright &copy; 2017
         script(src='/bower_components/bootstrap/dist/js/boostrap.js')
         script(src='/bower_components/jquery/dist/jquery.js')
         script(src='/js/main.js')
@@ -69,6 +76,9 @@ html
         script(src='https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js')
         // JQUERY CDN
         script(src='https://code.jquery.com/jquery-3.2.1.min.js', integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=', crossorigin='anonymous')
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
         // BOOTSTRAP CDN
         link(rel='stylesheet', type='text/css', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
         script(type='text/javascript', src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')

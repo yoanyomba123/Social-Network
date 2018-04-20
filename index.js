@@ -20,6 +20,7 @@ const app = express();
 // make use of cors module
 app.use(cors());
 
+
 // connect to my database
 mongoose.connect(database.database);
 // define db connection
@@ -45,7 +46,8 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // set public folder
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use('/public',express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname + "/public"));
 
 // express session middleware
 app.use(session({
