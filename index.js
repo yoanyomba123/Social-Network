@@ -1,5 +1,5 @@
 // imports
-const passport = require('passport');
+var passport = require('passport');
 const mongoose = require('mongoose');
 const express = require('express');
 const path = require('path');
