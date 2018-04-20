@@ -68,9 +68,7 @@ module.exports = app => {
     
     app.get('/filings', function(request, response){
         Promise.all(filingsurls.map(url => fetch(url).then(resp => parser.parseURL(url))
-            )).then(texts => {
-                console.log(texts[1]);
-                
+            )).then(texts => {                
                 response.render('filings', {
                     feeds: texts
                 })

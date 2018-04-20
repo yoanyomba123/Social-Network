@@ -10,21 +10,20 @@ block content
             - for (var j = 0; j < feed.items.length; j++)
                 if (j == 0 || j % 2 == 0)
                     .row
-                - for (var i = j; i < (2 + j); i++ )
-                    - if (i >= feed.items.length) break;
-                        .col-md-4
-                            .card.flex-md-row.mb-4.box-shadow.h-md-250
-                                .card-body.d-flex.flex-column.align-items-start
-                                    strong.d-inline-block.mb-2.text-success #{feed.title}
-                                    h3.mb-0
-                                        a.text-dark #{feed.items[i].title}
-                                    br
-                                    br
-                                    .mb-1.text-muted #{feed.items[i].pubDate}
-                                        hr
-                                    p.card-text.mb-auto #{feed.items[i].contentSnippet}
-                                    br
-                                    p.lead.mb-0
-                                    a.text-muted.font-weight-bold(href= feed.items[i].link) Continue reading...                                        
-                                    br
-                                    br       
+                -else
+                    .col-md-4
+                        .card.flex-md-row.mb-4.box-shadow.h-md-250
+                            .card-body.d-flex.flex-column.align-items-start
+                                strong.d-inline-block.mb-2.text-success #{feed.title}
+                                h3.mb-0
+                                    a.text-dark #{feed.items[i].title}
+                                br
+                                br
+                                .mb-1.text-muted #{feed.items[i].pubDate}
+                                    hr
+                                p.card-text.mb-auto #{feed.items[i].contentSnippet}
+                                br
+                                p.lead.mb-0
+                                a.text-muted.font-weight-bold(href= feed.items[i].link) Continue reading...                                        
+                                br
+                                br       

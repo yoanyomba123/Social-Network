@@ -1,22 +1,20 @@
 extends layout
         
 block content
-    each feed, i in feeds  
-        for block in feed.items   
-            container-fluid.p-3.p-sm-5.text-black.rounded.bg.slidefeed.card
-                .col-sm-8.px-0
-                    h2.display-8.font-italic #{block.title}
-                    br
-                    br
-                    h9.font-italic.text-muted #{block.pubDate}
-                    hr
-                    p.lead.my-3
-                    br
-                    |#{block.contentSnippet}
-                    br
-                    br
-                    p.lead.mb-0
-                    a.text-muted.font-weight-bold(href= block.link) Continue reading...
-                    br
-                    br
-                    br
+    each feed, i in feeds     
+        - for (var j = 0; j < feed.items.length; j++)
+            if (j == 0 || j % 3 == 0)
+                .row
+            -else
+                .col-md-4
+                    .card.flex-md-row.mb-4.box-shadow.h-md-250
+                        .card-body.d-flex.flex-column.align-items-start
+                            strong.d-inline-block.mb-2.text-success #{feed.title}
+                            h3.mb-0
+                                a.text-dark #{feed.items[i].title}
+                            br
+                            .mb-1.text-muted #{feed.items[i].pubDate}
+                            p.card-text.mb-auto #{feed.items[i].contentSnippet}
+                            br
+                            p.lead.mb-0
+                            a.text-muted.font-weight-bold(href= feed.items[i].link) Continue reading...                                        

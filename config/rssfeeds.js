@@ -21,6 +21,7 @@ module.exports = {
     'https://twitrss.me/twitter_user_to_rss/?user=ReutersBiz'],
 
     'MutualFundFilings': [
+    'https://www.sec.gov/news/speeches.rss',
     'https://www.sec.gov/Archives/edgar/xbrlrss.all.xml']
 
 }

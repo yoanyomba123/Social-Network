@@ -16,3 +16,10 @@ Step 2.
         - Landing Page
         - Navigation bar
 
+-------------------------------------------
+April 17th
+    1. RSS Feed - multiple aggregated feeds
+
+
+
+.

@@ -5,8 +5,7 @@ block content
         - for (var j = 0; j < feed.items.length; j++)
             if (j == 0 || j % 3 == 0)
                 .row
-            - for (var i = j; i < (3 + j); i++ )
-                - if (i >= feed.items.length) break;
+            -else
                 .col-md-4
                     .card.flex-md-row.mb-4.box-shadow.h-md-250
                         .card-body.d-flex.flex-column.align-items-start
