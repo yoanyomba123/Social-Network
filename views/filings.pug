@@ -5,7 +5,7 @@ block content
     br
     h1(class="text-center") #{title}
     hr
-    ul
+    ul.slide
         each feed, i in feeds     
             - for (var j = 0; j < feed.items.length; j++)
                 if (j == 0 || j % 2 == 0)
@@ -16,14 +16,14 @@ block content
                             .card-body.d-flex.flex-column.align-items-start
                                 strong.d-inline-block.mb-2.text-success #{feed.title}
                                 h3.mb-0
-                                    a.text-dark #{feed.items[i].title}
+                                    a.text-dark #{feed.items[j].title}
                                 br
                                 br
-                                .mb-1.text-muted #{feed.items[i].pubDate}
+                                .mb-1.text-muted #{feed.items[j].pubDate}
                                     hr
-                                p.card-text.mb-auto #{feed.items[i].contentSnippet}
+                                p.card-text.mb-auto #{feed.items[j].contentSnippet}
                                 br
                                 p.lead.mb-0
-                                a.text-muted.font-weight-bold(href= feed.items[i].link) Continue reading...                                        
+                                a.text-muted.font-weight-bold(href= feed.items[j].link) Continue reading...                                        
                                 br
                                 br       
