@@ -11,21 +11,6 @@ module.exports = app => {
         next();
     });
 
-    // home route
-    app.get('/', function(request, response){
-        Article.find({}, function(error, articles){
-            if(error){
-                console.log(error);
-            }
-            else{
-                response.render('index', {
-                    title: 'Articles',
-                    articles: articles
-                });
-            }
-        });
-    });
-
     // add an articles
     app.get('/article/add', function(request, response){
         response.render('add_article', {
