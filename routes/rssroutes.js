@@ -20,6 +20,7 @@ let economicsurls = rsscontent.Econonmics;
 let blogurls = rsscontent.Blogs;
 let socialurls = rsscontent.Social;
 let filingsurls = rsscontent.MutualFundFilings;
+let cryptourls = rsscontent.CryptoCurrencies;
 
 // define a function to get feeds
 
@@ -81,4 +82,15 @@ module.exports = app => {
             });
         });
   
+    app.get('/crypto', function(request, response){
+        Promise.all(cryptourls.map(url => fetch(url).then(resp => parser.parseURL(url))
+            )).then(texts => {  
+                console.log(texts[0].items[0].enclosure.url);
+                             
+                response.render('crypto', {
+                    feeds: texts
+                })
+                       
+            });
+        });
 };

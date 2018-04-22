@@ -22,6 +22,8 @@ module.exports = {
 
     'MutualFundFilings': [
     'https://www.sec.gov/news/speeches.rss',
-    'https://www.sec.gov/Archives/edgar/xbrlrss.all.xml']
+    'https://www.sec.gov/Archives/edgar/xbrlrss.all.xml'],
 
+    'CryptoCurrencies': [
+    'https://www.investing.com/rss/news_301.rss']
 }

@@ -1,0 +1,22 @@
+extends layout
+        
+block content
+    .slide
+        each feed, i in feeds     
+            - for (var j = 0; j < feed.items.length; j++)
+                if (j == 0 || j % 3 == 0)
+                    .row-3
+                -else
+                    .col-md-4
+                        .card.flex-md-row.mb-4.box-shadow.h-md-250
+                            .card-body.d-flex.flex-column.align-items-start
+                                strong.d-inline-block.mb-2.text-danger #{feed.title}
+                                h3.mb-0
+                                    a.text-dark #{feed.items[j].title}
+                                br
+                                .mb-1.text-muted Author: #{feed.items[j].author}
+                                hr
+                                .card-text.mb-auto
+                                br
+                                p.lead.mb-0
+                                a.text-muted.font-weight-bold(href= feed.items[j].link) Continue reading...                                        
