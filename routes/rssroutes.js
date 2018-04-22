@@ -22,9 +22,6 @@ let socialurls = rsscontent.Social;
 let filingsurls = rsscontent.MutualFundFilings;
 let cryptourls = rsscontent.CryptoCurrencies;
 
-// define a function to get feeds
-
-
 module.exports = app => {
     // home route
     app.get('/', function(request, response){
@@ -78,7 +75,6 @@ module.exports = app => {
                 response.render('filings', {
                     feeds: texts
                 })
-                   
             });
         });
   
