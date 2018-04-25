@@ -1,158 +1,135 @@
 doctype html
-
+//
+	Alpha by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 html
 	head
-		title Fin-Social, A financial social network
+		title Fin-Social
 		meta(charset='utf-8')
 		meta(name='viewport', content='width=device-width, initial-scale=1')
 		//if lte IE 8
-			\script(src='assets/js/ie/html5shiv.js')
+			script(src='assets/js/ie/html5shiv.js')
 		link(rel='stylesheet', href='assets/css/main.css')
 		//if lte IE 8
 			link(rel='stylesheet', href='assets/css/ie8.css')
-		//if lte IE 9
-			link(rel='stylesheet', href='assets/css/ie9.css')
 	body.landing
-		// Page Wrapper
 		#page-wrapper
 			// Header
 			header#header.alt
 				h1
-					a(href='index.html') Fin-Social
+					a(href='/') Fin-Social
+					| 
+					| |
+					|
+					| Elevate Your Thinking
 				nav#nav
-					ul
-						li.special
-							a.menuToggle(href='#menu')
-								span Menu
-							#menu
-								ul
-									li
-										a(href='/') Home
-									li
-										a(href='generic.html') Generic
-									li
-										a(href='elements.html') Elements
-									li
-										a(href='#') Sign Up
-									li
-										a(href='#') Log In
-                                    
+					if !user
+						ul
+							li
+								a.p-2(href='/') Home
+							li
+								a.p-2(href='/markets') Markets
+							li
+								a.p-2(href='/economy') Economy
+							li
+								a.p-2(href='/opinions') Commentary
+							li
+								a.p-2(href='/filings') Fund Filings
+							li
+								a.p-2(href='/crypto') Crypto-Currencies
+							li
+								a.button(href='/register') Sign Up
+							li
+								a.button(href='/login') Login
+					else
+						ul
+							li
+								a(href='/homefeed') My Feed
+							li
+								a(href='/portfolio') My Portfolio
+							li
+								a(href='/news') My News
+							li
+								a.button(href='/logout') Logout
+							
 			// Banner
 			section#banner
-				.inner
-					h2 Spectral
-					p
-						| A Social Network For Millenials
-						br
-						| 							
-						br
-						| 							crafted by and For
-						a(href='#')  Us
-						| .
-					ul.actions
-						li
-							//a.button.special(href='#') Activate
-				a.more.scrolly(href='#one') Learn More
-			// One
-			section#one.wrapper.style1.special
-				.inner
+				h2 Fin-Social
+				p A Social Network For Millenials
+				ul.actions
+					li
+						a.button.special(href='#') Sign Up
+					li
+						a.button(href='#') Learn More
+			// Main
+			section#main.container
+				section.box.special
 					header.major
 						h2
-							| Arcu aliquet vel lobortis ata nisl
+							| Introducing the ultimate mobile app
 							br
-							| 								eget augue amet aliquet nisl cep donec
+							| 							for augmenting your financial literacy
 						p
-							| Aliquam ut ex ut augue consectetur interdum. Donec amet imperdiet eleifend
+							| Blandit varius ut praesent nascetur eu penatibus nisi risus faucibus nunc ornare
 							br
-							| 								fringilla tincidunt. Nullam dui leo Aenean mi ligula, rhoncus ullamcorper.
-					ul.icons.major
-						li
-							span.icon.fa-diamond.major.style1
-								span.label Lorem
-						li
-							span.icon.fa-heart-o.major.style2
-								span.label Ipsum
-						li
-							span.icon.fa-code.major.style3
-								span.label Dolor
-			// Two
-			section#two.wrapper.alt.style2
-				section.spotlight
-					.image
-						img(src='images/pic01.jpg', alt='')
-					.content
-						h2
-							| Magna primis lobortis
-							br
-							| 								sed ullamcorper
-						p
-							| Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.
-				section.spotlight
-					.image
-						img(src='images/pic02.jpg', alt='')
-					.content
-						h2
-							| Tortor dolore feugiat
-							br
-							| 								elementum magna
-						p
-							| Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.
-				section.spotlight
-					.image
-						img(src='images/pic03.jpg', alt='')
-					.content
-						h2
-							| Augue eleifend aliquet
-							br
-							| 								sed condimentum
-						p
-							| Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.
-			// Three
-			section#three.wrapper.style3.special
-				.inner
-					header.major
-						h2 Accumsan mus tortor nunc aliquet
-						p
-							| Aliquam ut ex ut augue consectetur interdum. Donec amet imperdiet eleifend
-							br
-							| 								fringilla tincidunt. Nullam dui leo Aenean mi ligula, rhoncus ullamcorper.
-					ul.features
-						li.icon.fa-paper-plane-o
-							h3 Arcu accumsan
+							| 							adipiscing nunc adipiscing. Condimentum turpis massa.
+					span.image.featured
+						img(src='images/iphone.jpg', alt='')
+				section.box.special.features
+					.features-row
+						section
+							span.icon.major.fa-bolt.accent2
+							h3 Magna etiam
 							p
-								| Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.
-						li.icon.fa-laptop
-							h3 Ac Augue Eget
+								| Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.
+						section
+							span.icon.major.fa-area-chart.accent3
+							h3 Ipsum dolor
 							p
-								| Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.
-						li.icon.fa-code
-							h3 Mus Scelerisque
+								| Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.
+					.features-row
+						section
+							span.icon.major.fa-cloud.accent4
+							h3 Sed feugiat
 							p
-								| Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.
-						li.icon.fa-headphones
-							h3 Mauris Imperdiet
+								| Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.
+						section
+							span.icon.major.fa-lock.accent5
+							h3 Enim phasellus
 							p
-								| Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.
-						li.icon.fa-heart-o
-							h3 Aenean Primis
+								| Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.
+				.row
+					.6u(class='12u(narrower)')
+						section.box.special
+							span.image.featured
+								img(src='images/pic02.jpg', alt='')
+							h3 Sed lorem adipiscing
 							p
-								| Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.
-						li.icon.fa-flag-o
-							h3 Tortor Ut
+								| Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.
+							ul.actions
+								li
+									a.button.alt(href='#') Learn More
+					.6u(class='12u(narrower)')
+						section.box.special
+							span.image.featured
+								img(src='images/pic03.jpg', alt='')
+							h3 Accumsan integer
 							p
-								| Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.
+								| Integer volutpat ante et accumsan commophasellus sed aliquam feugiat lorem aliquet ut enim rutrum phasellus iaculis accumsan dolore magna aliquam veroeros.
+							ul.actions
+								li
+									a.button.alt(href='#') Learn More
 			// CTA
-			section#cta.wrapper.style4
-				.inner
-					header
-						h2 Arcue ut vel commodo
-						p
-							| Aliquam ut ex ut augue consectetur interdum endrerit imperdiet amet eleifend fringilla.
-					ul.actions.vertical
-						li
-							a.button.fit.special(href='#') Activate
-						li
-							a.button.fit(href='#') Learn More
+			section#cta
+				h2 Sign up for beta access
+				p Blandit varius ut praesent nascetur eu penatibus nisi risus faucibus nunc.
+				form
+					.row.uniform(class='50%')
+						.8u(class='12u(mobilep)')
+							input#email(type='email', name='email', placeholder='Email Address')
+						.4u(class='12u(mobilep)')
+							input.fit(type='submit', value='Sign Up')
 			// Footer
 			footer#footer
 				ul.icons
@@ -166,20 +143,23 @@ html
 						a.icon.fa-instagram(href='#')
 							span.label Instagram
 					li
+						a.icon.fa-github(href='#')
+							span.label Github
+					li
 						a.icon.fa-dribbble(href='#')
 							span.label Dribbble
 					li
-						a.icon.fa-envelope-o(href='#')
-							span.label Email
+						a.icon.fa-google-plus(href='#')
+							span.label Google+
 				ul.copyright
-					li © Untitled
+					li © Untitled. All rights reserved.
 					li
 						| Design: 
 						a(href='http://html5up.net') HTML5 UP
 		// Scripts
 		script(src='assets/js/jquery.min.js')
-		script(src='assets/js/jquery.scrollex.min.js')
-		script(src='assets/js/jquery.scrolly.min.js')
+		script(src='assets/js/jquery.dropotron.min.js')
+		script(src='assets/js/jquery.scrollgress.min.js')
 		script(src='assets/js/skel.min.js')
 		script(src='assets/js/util.js')
 		//if lte IE 8

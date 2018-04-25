@@ -1,0 +1,21 @@
+extends ../../template
+
+
+
+block content
+    section#banner-dark
+        h1.text-center Login
+            hr
+
+    section#main.container
+        form(method='POST', action='/login').jumbotron.bg-light
+            #form-group
+                label Username:
+                input.form-control(name='username', type='text')
+                br
+            #form-group
+                label Password:
+                input.form-control(name='password', type='password')
+                br
+            br
+            input.btn.btn-primary(type='submit', value='Submit')

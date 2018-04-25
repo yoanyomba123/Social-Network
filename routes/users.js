@@ -82,6 +82,10 @@ module.exports = app => {
         response.redirect('/login');
     });
 
+    app.get('/profile', function(request, response){
+        response.render('Profile/profile_template');
+    });
+
 
 
 

@@ -21,33 +21,49 @@ module.exports = {
 
 
 function home(request, response, next){
-    response.render('home');
+    var query = {'_id':request.user._id};
+    User.findById(query, function(error, user){
+        if(error){
+            console.log(error);
+            console.log("ERROR");
+            return;
+        }
+
+        if(!user){
+            return new Error("User Not Found");
+        }
+
+        console.log(user);
+        response.render('Profile/User/user_profile', {
+            user: user
+        });
+    });
+
 }
 
 // define signup function
 function signup(request, response, next){
-    response.render('register');
+    response.render('Landing_Site/Signup/sign_up_file');
 }
 
 // login function
 function login(request, response, next){
-    response.render('login');
+    response.render('Landing_Site/Sign_In/sign_in_file');
 }
 
 // login auth
 function loginAuth(){
     passport.authenticate('local', { 
-        failureRedirect: '/markets',
+        failureRedirect: '/home',
         failureFlash: true 
     },function(request, response) {
-        response.redirect('/');
+        response.redirect('/profile');
 });
 }
 //logout function
 function logout(request, response, next){
     request.logout();
     response.locals.user = null;
-    request.session = null;
     request.flash('success', 'You are logged out');
     response.redirect('/login');
 }
@@ -180,7 +196,7 @@ function showPosts(request, result, next){
             return next(new Error('User Not found'));
         }
 
-        Post.find({'user_id': request.session.user._id},function(error, posts){
+        Post.find({'user_id': request.params.id},function(error, posts){
             if(error){
                 return next(error);
             }    
@@ -208,11 +224,11 @@ function showAllUsers(request, response, next) {
 // Show User Profile
 function showUserProfile(request, response, next) {
     User.findOne({
-        email:req.session.user.email
+        email:request.body.email
     }, function(error, user) {
         if (error){
             return next(err);
         }
-    	response.render('dashboard', {user: user});
+    	response.render('Profile/profile_template', {user: user});
   });
 }

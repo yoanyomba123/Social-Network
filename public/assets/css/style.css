@@ -1,0 +1,584 @@
+.alert-error{
+    color: #a94442;
+    background-color:#f2dede;
+    border-color: #ebccd1;
+}
+
+.alert-success_msg{
+    color: #3c763d;
+    background-color:#dff0d8;
+    border-color: #d6e9c6;
+}
+html,body {
+    font: 400 15px Lato, sans-serif;
+    line-height: 1.8;
+    color: #818181;
+    margin: auto
+}
+h2 {
+    font-size: 24px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #303030;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+h4 {
+    font-size: 19px;
+    line-height: 1.375em;
+    color: #303030;
+    font-weight: 400;
+    margin-bottom: 30px;
+}  
+.jumbotron {
+    background-color: #f4511e;
+    color: #fff;
+    padding: 100px 25px;
+    font-family: Montserrat, sans-serif;
+}
+.container-fluid {
+    padding: 60px 50px;
+}
+.bg-grey {
+    background-color: #ebe9e9;
+}
+.logo-small {
+    color: #f4511e;
+    font-size: 40px;
+}
+.logo {
+    color: #f4511e;
+    font-size: 200px;
+}
+.thumbnail {
+    padding: 0 0 15px 0;
+    border: none;
+    border-radius: 0;
+}
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 10px;
+}
+.carousel-control.right, .carousel-control.left {
+    background-image: none;
+    color: #ebe4e3;
+}
+.carousel-indicators li {
+    border-color: #ebe4e3;
+}
+.carousel-indicators li.active {
+    background-color: #706d6d;
+}
+.item h4 {
+    font-size: 19px;
+    line-height: 1.375em;
+    font-weight: 400;
+    font-style: italic;
+    margin: 70px 0;
+}
+.item span {
+    font-style: normal;
+}
+.panel {
+    border: 1px solid #ebe4e3; 
+    border-radius:0 !important;
+    transition: box-shadow 0.5s;
+}
+.panel:hover {
+    box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+}
+.panel-footer .btn:hover {
+    border: 1px solid #ebe4e3;
+    background-color: #ebe4e3 !important;
+    color: #ebe4e3;
+}
+.panel-heading {
+    color: #fff !important;
+    background-color: #e2e1e0 !important;
+    padding: 25px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+.panel-footer {
+    background-color: white !important;
+}
+.panel-footer h3 {
+    font-size: 32px;
+}
+.panel-footer h4 {
+    color: #aaa;
+    font-size: 14px;
+}
+.panel-footer .btn {
+    margin: 15px 0;
+    background-color: #ebeaea;
+    color: #fff;
+}
+.navbar {
+    margin-bottom: 0;
+    background-color: #f3f2f2;
+    z-index: 9999;
+    border: 0;
+    font-size: 12px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 4px;
+    border-radius: 0;
+    font-family: Montserrat, sans-serif;
+}
+.navbar li a, .navbar .navbar-brand {
+    color: #fff !important;
+}
+.navbar-nav li a:hover, .navbar-nav li.active a {
+    color: #ebe4e3 !important;
+    background-color: transparent;
+}
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+    color: #fff !important;
+}
+footer .glyphicon {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #eeeae8;
+}
+.slideanim {
+    visibility:hidden;
+    animation-duration: 1.5s;
+    -webkit-animation-duration: 1.5s;}
+.slidefeed {
+    animation-name: slidefeed;
+    -webkit-animation-name: slidefeed;
+    visibility:visible;
+    animation-duration: 2.5s;
+    -webkit-animation-duration: 2.5s;}
+.slide {
+    animation-name: slide;
+    -webkit-animation-name: slide;
+    animation-duration: 3.5s;
+    -webkit-animation-duration: 3.5s;
+    visibility: visible;
+}
+@keyframes slide {
+  0% {
+    opacity: 0;
+    transform: translateY(70%);
+  } 
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+@-webkit-keyframes slide {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(70%);
+  } 
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0%);
+  }
+}
+
+@keyframes slideanim {
+    0% {
+      opacity: 0;
+      transform: translateY(70%);
+    } 
+    100% {
+      opacity: 1;
+      transform: translateY(0%);
+    }
+  }
+  
+  @-webkit-keyframes slideanim {
+    0% {
+      opacity: 0;
+      -webkit-transform: translateY(70%);
+    } 
+    100% {
+      opacity: 1;
+      -webkit-transform: translateY(0%);
+    }
+  }
+
+  @keyframes slidefeed {
+    0% {
+      opacity: 0;
+      transform: translateY(70%);
+    } 
+    100% {
+      opacity: 1;
+      transform: translateY(0%);
+    }
+  }
+  
+  @-webkit-keyframes slidefeed {
+    0% {
+      opacity: 0;
+      -webkit-transform: translateY(70%);
+    } 
+    100% {
+      opacity: 1;
+      -webkit-transform: translateY(0%);
+    }
+  }
+
+.animated {
+    -webkit-animation-duration: 1.5s;
+    animation-duration: 1.5s;
+  }
+
+@-webkit-keyframes fadeInRight {
+    from {
+      opacity: 0;
+      -webkit-transform: translate3d(100px, 0, 0);
+      transform: translate3d(100px, 0, 0);
+    }
+  
+    to {
+      opacity: 1;
+      -webkit-transform: none;
+      transform: none;
+    }
+  }
+  
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      -webkit-transform: translate3d(100px, 0, 0);
+      transform: translate3d(100px, 0, 0);
+    }
+  
+    to {
+      opacity: 1;
+      -webkit-transform: none;
+      transform: none;
+    }
+  }
+  
+  .fadeInRight {
+    -webkit-animation-name: fadeInRight;
+    animation-name: fadeInRight;
+  }
+@media screen and (max-width: 768px) {
+  .col-sm-4 {
+    text-align: center;
+    margin: 25px 0;
+  }
+  .btn-lg {
+      width: 100%;
+      margin-bottom: 35px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .logo {
+      font-size: 150px;
+  }
+}
+
+
+
+
+/*   
+ Stocks
+*/
+
+.form-container {
+	width: auto;
+	height: auto;
+	display: block;	
+	border-radius: 7px;
+	border: 2px solid white;
+	padding: 30px; 
+	background: #FFF;   
+	margin: 20px auto 0px auto;
+}
+
+.inner-container {
+	width: 96%;
+	margin: 25px auto 25px auto; 
+}
+
+#stocktickersymbol {
+	text-align: left;
+	display: block;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.heading-css {
+	height: auto;
+	overflow: hidden;
+	padding:10px;
+}
+
+.astrix {
+	color: #F00;
+}
+
+.display {
+	background: #FFF;
+	height: auto;
+	border-radius : 5px;
+	border:2px solid #F0F0F0;
+}
+
+.favourite-row-two {
+	padding: 30px 0px 0px 0px;
+	margin: 0;
+}
+
+.favourite-row-three {
+	padding: 0 10px 0 10px;
+	margin: 0;
+}
+
+.pad-element {
+	padding-top: 20px;
+}
+    
+#tableProgress {
+    margin-top: 180px;
+    margin-bottom: 180px;
+}
+    
+#priceProgress {
+    margin-top: 150px;
+    margin-bottom: 180px;
+}
+    
+#priceProgress {
+    margin-top: 150px;
+    margin-bottom: 180px;
+}
+
+#smaProgress {
+    margin-top: 150px;
+    margin-bottom: 180px;
+}
+    
+#emaProgress {
+    margin-top: 150px;
+    margin-bottom: 180px;
+}
+    
+#stochProgress {
+    margin-top: 150px;
+    margin-bottom: 180px;
+}
+    
+#rsiProgress {
+    margin-top: 150px;
+    margin-bottom: 180px;
+}
+    
+#adxProgress {
+    margin-top: 150px;
+    margin-bottom: 180px;
+}
+    
+#cciProgress {
+    margin-top: 150px;
+    margin-bottom: 180px;
+}
+    
+#bbandsProgress {
+    margin-top: 150px;
+    margin-bottom: 180px;
+}    
+    
+#macdProgress {
+    margin-top: 150px;
+    margin-bottom: 180px;
+}    
+
+#histProgress {
+    margin-top: 180px;
+    margin-bottom: 180px;
+}   
+
+#newsProgress {
+    margin-top: 180px;
+    margin-bottom: 180px;
+}   
+
+.yellow {
+	color: #FFFF00;
+}
+    
+span.not-allowed {
+    cursor: not-allowed;
+}
+
+::ng-deep .mat-autocomplete-panel#md-autocomplete-0 {
+  border: 3px solid black !important;
+  border-radius: 10px;
+  background-color:green;
+
+}
+
+md-autocomplete button {
+    visibility: hidden;
+}
+
+md-autocomplete-wrap {
+    border-radius: 5px 5px; 
+    border : 1px solid #00F;  
+}
+
+body,html{
+    height: 100%;
+}
+
+/* remove outer padding */
+.main .row{
+    padding: 0px;
+    margin: 0px;
+}
+
+/*Remove rounded coners*/
+
+nav.sidebar.navbar {
+    border-radius: 0px;
+}
+
+nav.sidebar, .main{
+    -webkit-transition: margin 200ms ease-out;
+    -moz-transition: margin 200ms ease-out;
+    -o-transition: margin 200ms ease-out;
+    transition: margin 200ms ease-out;
+}
+
+/* Add gap to nav and right windows.*/
+.main{
+    padding: 10px 10px 0 10px;
+}
+
+/* .....NavBar: Icon only with coloring/layout.....*/
+
+/*small/medium side display*/
+@media (min-width: 768px) {
+
+    /*Allow main to be next to Nav*/
+    .main{
+        position: absolute;
+        width: calc(100% - 40px); /*keeps 100% minus nav size*/
+        margin-left: 40px;
+        float: right;
+    }
+
+    /*lets nav bar to be showed on mouseover*/
+    nav.sidebar:hover + .main{
+        margin-left: 200px;
+    }
+
+    /*Center Brand*/
+    nav.sidebar.navbar.sidebar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
+        margin-left: 0px;
+    }
+    /*Center Brand*/
+    nav.sidebar .navbar-brand, nav.sidebar .navbar-header{
+        text-align: center;
+        width: 100%;
+        margin-left: 0px;
+    }
+
+    /*Center Icons*/
+    nav.sidebar a{
+        padding-right: 13px;
+    }
+
+    /*adds border top to first nav box */
+    nav.sidebar .navbar-nav > li:first-child{
+        border-top: 1px #e5e5e5 solid;
+    }
+
+    /*adds border to bottom nav boxes*/
+    nav.sidebar .navbar-nav > li{
+        border-bottom: 1px #e5e5e5 solid;
+    }
+
+    /* Colors/style dropdown box*/
+    nav.sidebar .navbar-nav .open .dropdown-menu {
+        position: static;
+        float: none;
+        width: auto;
+        margin-top: 0;
+        background-color: transparent;
+        border: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    /*allows nav box to use 100% width*/
+    nav.sidebar .navbar-collapse, nav.sidebar .container-fluid{
+        padding: 0 0px 0 0px;
+    }
+
+    /*colors dropdown box text */
+    .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+        color: #777;
+    }
+
+    /*gives sidebar width/height*/
+    nav.sidebar{
+        width: 200px;
+        height: 100%;
+        margin-left: -160px;
+        float: left;
+        z-index: 8000;
+        margin-bottom: 0px;
+    }
+
+    /*give sidebar 100% width;*/
+    nav.sidebar li {
+        width: 100%;
+    }
+
+    /* Move nav to full on mouse over*/
+    nav.sidebar:hover{
+        margin-left: 0px;
+    }
+    /*for hiden things when navbar hidden*/
+    .forAnimate{
+        opacity: 0;
+    }
+}
+
+/* .....NavBar: Fully showing nav bar..... */
+
+@media (min-width: 1330px) {
+
+    /*Allow main to be next to Nav*/
+    .main{
+        width: calc(100% - 200px); /*keeps 100% minus nav size*/
+        margin-left: 200px;
+    }
+
+    /*Show all nav*/
+    nav.sidebar{
+        margin-left: 0px;
+        float: left;
+    }
+    /*Show hidden items on nav*/
+    nav.sidebar .forAnimate{
+        opacity: 0;
+    }
+}
+
+nav.sidebar .navbar-nav .open .dropdown-menu>li>a:hover, nav.sidebar .navbar-nav .open .dropdown-menu>li>a:focus {
+    color: #CCC;
+    background-color: transparent;
+}
+
+nav:hover .forAnimate{
+    opacity: 1;
+}
+section{
+    padding-left: 15px;
+}

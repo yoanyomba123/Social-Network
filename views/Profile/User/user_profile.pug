@@ -1,0 +1,38 @@
+extends ../profile_template
+
+block content
+    br
+    .container
+        .row
+            .col
+                img.img-circle(src='assets/css/images/overlay.png', alt='User Photo')
+            .col
+                .container(style='width: 45rem;')
+                    form(method='POST', action='#/post/add')
+                        #form-group
+                            label.text-center Whats On Your Mind
+                            textarea.form-control(name='body')
+                        br
+                        input.btn.btn-primary(type='submit', value='Submit')
+                    br
+        .row
+            .col
+                h1.bold
+                | Name: #{user.first_name} #{user.last_name}
+                |           @ #{user.username}
+                br
+                | Email: #{user.email}
+                br
+                | Posts: #{user.posts.length} |  Followers: #{user.followers.length} | Following: #{user.followers.length}                
+        hr
+        br
+        br
+        
+        br
+        br
+        hr
+        ul.list-group
+            each post, i in user.posts
+                li.list-group-item 
+                    a(href='/post/'+post._id) #{post.body}
+    

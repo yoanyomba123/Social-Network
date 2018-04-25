@@ -13,8 +13,8 @@ var bodyParser = require("body-parser");
 var request = require("request");
 var parseString = require('xml2js').parseString;
 
-users = require('./routes/users.routes'),
-
+users = require('./routes/users.routes');
+posts = require('./routes/post.routes');
 // initialize app
 app = express();
 
@@ -89,6 +89,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(users);
+app.use(posts);
+
 // make use of routes
 require('./routes/routes')(app);
 require('./routes/business')(app);

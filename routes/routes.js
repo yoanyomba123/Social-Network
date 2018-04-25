@@ -11,6 +11,10 @@ module.exports = app => {
         next();
     });
 
+    app.get('/template', function(request, response, next){
+        response.render("template");
+    });
+
     // add an articles
     app.get('/article/add', function(request, response){
         response.render('add_article', {

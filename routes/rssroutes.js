@@ -25,24 +25,24 @@ let cryptourls = rsscontent.CryptoCurrencies;
 module.exports = app => {
     // home route
     app.get('/', function(request, response){
-        response.render('index');
+        response.render('home');
     });
 
 
     app.get('/markets', function(request, response){
         Promise.all(financeurls.map(url => fetch(url).then(resp => parser.parseURL(url))
             )).then(texts => {
-                response.render('markets', {
+                response.render('Landing_Site/markets/markets_file', {
                     feeds: texts
                 })   
             });
 
     });
 
-    app.get('/economics', function(request, response){
+    app.get('/economy', function(request, response){
         Promise.all(economicsurls.map(url => fetch(url).then(resp => parser.parseURL(url))
             )).then(texts => {
-                response.render('economics', {
+                response.render('Landing_Site/economy/economy_file', {
                     feeds: texts
                 })   
             });
@@ -52,7 +52,7 @@ module.exports = app => {
     app.get('/opinions', function(request, response){
         Promise.all(blogurls.map(url => fetch(url).then(resp => parser.parseURL(url))
             )).then(texts => {
-                response.render('commentary', {
+                response.render('Landing_Site/commentary/commentary_file', {
                     feeds: texts
                 })   
             });
@@ -72,7 +72,7 @@ module.exports = app => {
     app.get('/filings', function(request, response){
         Promise.all(filingsurls.map(url => fetch(url).then(resp => parser.parseURL(url))
             )).then(texts => {                
-                response.render('filings', {
+                response.render('Landing_Site/fund_filings/fund_filings_file', {
                     feeds: texts
                 })
             });
@@ -83,7 +83,7 @@ module.exports = app => {
             )).then(texts => {  
                 console.log(texts[0].items[0].enclosure.url);
                              
-                response.render('crypto', {
+                response.render('Landing_Site/cryptocurrency/cryptocurrency_file', {
                     feeds: texts
                 })
                        

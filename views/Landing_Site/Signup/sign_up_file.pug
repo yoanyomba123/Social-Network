@@ -1,0 +1,38 @@
+extends ../../template
+
+
+
+block content
+    section#banner-dark
+        h1.text-center Sign Up
+            hr
+
+    section#main.container
+        form(method='POST', action='/register').jumbotron.bg-light
+            #form-group
+                label First Name:
+                input.form-control(name='first_name', type='text')
+                br
+            #form-group
+                label Last Name:
+                input.form-control(name='last_name', type='text')
+                br
+            #form-group
+                label Email:
+                input.form-control(name='email', type='text')
+                br
+            #form-group
+                label Username:
+                input.form-control(name='username', type='text')
+                br
+            #form-group
+                label Password:
+                input.form-control(name='password', type='password')
+                br
+            #form-group
+                label Confirm Password:
+                input.form-control(name='confpassword', type='password')
+                br
+            br
+            input.btn.btn-primary(type='submit', value='Submit')
+        

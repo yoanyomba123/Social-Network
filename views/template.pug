@@ -1,0 +1,126 @@
+doctype html
+
+html
+	head
+		title Fin-Social
+		meta(charset='utf-8')
+		meta(name='viewport', content='width=device-width, initial-scale=1')
+		//if lte IE 8
+			script(src='assets/js/ie/html5shiv.js')
+		link(rel='stylesheet', href='assets/css/main.css')
+		//if lte IE 8
+			link(rel='stylesheet', href='assets/css/ie8.css')
+		link(rel = 'stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
+		link(rel = 'stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
+		link(rel = 'stylesheet' href='/css/style.css')
+		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+		link(href='https://fonts.googleapis.com/css?family=Montserrat', rel='stylesheet', type='text/css')
+		link(href='https://fonts.googleapis.com/css?family=Lato', rel='stylesheet', type='text/css')
+		link(rel='stylesheet', href='https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css')
+		link(rel='stylesheet', type='text/css', href='https://material.angularjs.org/1.1.5/docs.css')
+        
+	body.landing
+		#page-wrapper
+			// Header
+			header#header.alt
+				nav#nav.sticky-top
+					if !user
+						ul
+							li
+								a.p-2(href='/') Home
+							li
+								a.p-2(href='/markets') Markets
+							li
+								a.p-2(href='/economy') Economy
+							li
+								a.p-2(href='/opinions') Commentary
+							li
+								a.p-2(href='/filings') Fund Filings
+							li
+								a.p-2(href='/crypto') Crypto-Currencies
+							li
+								a.button(href='/register') Sign Up
+							li
+								a.button(href='/login') Login
+					else
+						ul
+							li
+								a(href='/homefeed') My Feed
+							li
+								a(href='/portfolio') My Portfolio
+							li
+								a(href='/news') My News
+			!= messages('message', locals)
+			if errors  
+				each error, i in errors
+					div(class="alert alert-danger") #{error.msg}
+			block content
+			// Footer
+			footer#footer
+				ul.icons
+					li
+						a.icon.fa-twitter(href='#')
+							span.label Twitter
+					li
+						a.icon.fa-facebook(href='#')
+							span.label Facebook
+					li
+						a.icon.fa-instagram(href='#')
+							span.label Instagram
+					li
+						a.icon.fa-github(href='#')
+							span.label Github
+					li
+						a.icon.fa-dribbble(href='#')
+							span.label Dribbble
+					li
+						a.icon.fa-google-plus(href='#')
+							span.label Google+
+				ul.copyright
+					li © Untitled. All rights reserved.
+					li
+						| Design: 
+						a(href='http://html5up.net') HTML5 UP
+		// Scripts
+		script(src='assets/js/jquery.min.js')
+		script(src='assets/js/jquery.dropotron.min.js')
+		script(src='assets/js/jquery.scrollgress.min.js')
+		script(src='assets/js/skel.min.js')
+		script(src='assets/js/util.js')
+		//if lte IE 8
+			script(src='assets/js/ie/respond.min.js')
+		script(src='assets/js/main.js')
+		cript(src='/bower_components/bootstrap/dist/js/boostrap.js')
+		script(src='/bower_components/jquery/dist/jquery.js')
+		script(src='/js/main.js')
+		script(src='/js/angular.js')
+		script(src='/js/Utilities.js')
+		script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+		script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+		script(src='/bower_components/bootstrap/assets/js/ie10-viewport-bug-workaround.js')
+		script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js')
+		script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js')
+		script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js')
+		script(src='https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js')
+		// JQUERY CDN
+		script(src='https://code.jquery.com/jquery-3.2.1.min.js', integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=', crossorigin='anonymous')
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+		// BOOTSTRAP CDN
+		link(rel='stylesheet', type='text/css', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+		script(type='text/javascript', src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+		// BOOTSTRAP TOGGLE CDN
+		link(href='https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css', rel='stylesheet')
+		script(src='https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js')
+		// AJAX CDN
+		script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+		// MOMENTS CDN
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.2/moment.js')
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone.js')
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-utils.js')
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-with-data.js')
+		// HIGHCHARTS CDN
+		script(src='https://code.highcharts.com/stock/highstock.js')
+		script(src='https://code.highcharts.com/modules/exporting.js')
+

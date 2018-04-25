@@ -1,0 +1,35 @@
+extends ../../template
+
+
+
+block content
+    section#banner-dark
+        h1 Fund Filings
+            hr
+
+    section#main.container
+        each feed, i in feeds     
+            - for (var j = 0; j < feed.items.length; j++)
+                -if (j == 0 || j % 2 == 0)
+                    .row
+                -else
+                    .6u.col-md-6(class='12u(narrower)')
+                        section.box.special.text-dark
+                            h3 #{feed.items[j].title}
+                            br
+                            p.text-dark
+                                | #{feed.items[j].content}
+                            a.text-dark(href=feed.items[j].link) Learn More
+                    //
+                        .col-md-4
+                            .card.flex-md-row.mb-4.box-shadow.h-md-250
+                                .card-body.d-flex.flex-column.align-items-start
+                                    strong.d-inline-block.mb-2.text-primary #{feed.title}
+                                    h3.mb-0
+                                        a.text-dark #{feed.items[j].title}
+                                    br
+                                    .mb-1.text-muted #{feed.items[j].pubDate}
+                                    p.card-text.mb-auto #{feed.items[j].content}
+                                    br
+                                    p.lead.mb-0
+                                    a.text-muted.font-weight-bold(href= feed.items[j].link) Continue reading...                                        
