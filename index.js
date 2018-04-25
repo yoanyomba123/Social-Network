@@ -13,13 +13,13 @@ var bodyParser = require("body-parser");
 var request = require("request");
 var parseString = require('xml2js').parseString;
 
+users = require('./routes/users.routes'),
 
 // initialize app
-const app = express();
+app = express();
 
 // make use of cors module
 app.use(cors());
-
 
 // connect to my database
 mongoose.connect(database.database);
@@ -88,11 +88,12 @@ require('./config/passport')(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(users);
 // make use of routes
 require('./routes/routes')(app);
 require('./routes/business')(app);
 require('./routes/rssroutes')(app);
-require('./routes/users')(app);
+//require('./routes/users')(app);
 require('./routes/LoggedIn/Portfolio')(app);
 
 

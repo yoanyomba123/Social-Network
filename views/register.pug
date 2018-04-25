@@ -5,8 +5,12 @@ block content
         hr
         form(method='POST', action='/register').jumbotron.bg-light
             #form-group
-                label Name:
-                input.form-control(name='name', type='text')
+                label First Name:
+                input.form-control(name='first_name', type='text')
+                br
+            #form-group
+                label Last Name:
+                input.form-control(name='last_name', type='text')
                 br
             #form-group
                 label Email:
