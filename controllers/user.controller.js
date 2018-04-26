@@ -2,6 +2,7 @@ const User = require('../models/user');
 const Post = require('../models/post');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 
 module.exports = {
@@ -20,6 +21,21 @@ module.exports = {
   }
 
 
+// find user by id
+function findUser(request){
+    User.findById({'_id': ObjectId(request.params('_id'))}, function(error, user){
+        if(error){
+            console.log(error);
+            return;
+        }
+        else{
+            return user;
+        }
+    });
+}
+
+
+
 function home(request, response, next){
     var query = {'_id':request.user._id};
     User.findById(query, function(error, user){
@@ -34,9 +50,18 @@ function home(request, response, next){
         }
 
         console.log(user);
-        response.render('Profile/User/user_profile', {
-            user: user
+
+        var postsObject = [];
+        // find all posts the user wrote
+        Post.find({"user":user._id}).then(results => {
+            console.log(results);
+            response.render('Profile/User/user_profile', {
+                user: user,
+                posts: results
+            });
+        
         });
+       
     });
 
 }
@@ -64,7 +89,7 @@ function loginAuth(){
 function logout(request, response, next){
     request.logout();
     response.locals.user = null;
-    request.flash('success', 'You are logged out');
+    //request.flash('success', 'You are logged out');
     response.redirect('/login');
 }
 

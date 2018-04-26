@@ -1,21 +1,20 @@
-extends ../../template
+extends ../../template1
 
 
 
 block content
-    section#banner-dark
-        h1.text-center Login
-            hr
+    section#banner
 
-    section#main.container
-        form(method='POST', action='/login').jumbotron.bg-light
-            #form-group
-                label Username:
-                input.form-control(name='username', type='text')
+    section#main.card
+        .container.card
+            form(method='POST', action='/login').jumbotron.bg-dark.text-dark
+                #form-group
+                    label.text-dark Username:
+                    input.form-control(name='username', type='text')
+                    br
+                #form-group
+                    label.text-dark Password:
+                    input.form-control(name='password', type='password')
+                    br
                 br
-            #form-group
-                label Password:
-                input.form-control(name='password', type='password')
-                br
-            br
-            input.btn.btn-primary(type='submit', value='Submit')
+                input.btn.btn-primary(type='submit', value='Submit')

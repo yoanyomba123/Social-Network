@@ -1,0 +1,91 @@
+doctype html
+//
+	Alpha by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+html
+	head
+		title Fin-Social
+		meta(charset='utf-8')
+		meta(name='viewport', content='width=device-width, initial-scale=1')
+		//if lte IE 8
+			script(src='assets/js/ie/html5shiv.js')
+		link(rel='stylesheet', href='assets/css/main.css')
+		//if lte IE 8
+			link(rel='stylesheet', href='assets/css/ie8.css')
+	body.landing
+		#page-wrapper
+			// Header
+			header#header.alt
+				h1
+					a(href='/') Fin-Social
+					| 
+					| |
+					|
+					| Elevate Your Thinking
+				nav#nav
+					if !user
+						ul
+							li
+								a.p-2(href='/') Home
+							li
+								a.p-2(href='/markets') Markets
+							li
+								a.p-2(href='/economy') Economy
+							li
+								a.p-2(href='/opinions') Commentary
+							li
+								a.p-2(href='/filings') Fund Filings
+							li
+								a.p-2(href='/crypto') Crypto-Currencies
+							li
+								a.button(href='/register') Sign Up
+							li
+								a.button(href='/login') Login
+					else
+						ul
+							li
+								a(href='/homefeed') My Feed
+							li
+								a(href='/portfolio') My Portfolio
+							li
+								a(href='/news') My News
+							li
+								a.button(href='/logout') Logout
+							
+
+			block content
+			footer#footer
+				ul.icons
+					li
+						a.icon.fa-twitter(href='#')
+							span.label Twitter
+					li
+						a.icon.fa-facebook(href='#')
+							span.label Facebook
+					li
+						a.icon.fa-instagram(href='#')
+							span.label Instagram
+					li
+						a.icon.fa-github(href='#')
+							span.label Github
+					li
+						a.icon.fa-dribbble(href='#')
+							span.label Dribbble
+					li
+						a.icon.fa-google-plus(href='#')
+							span.label Google+
+				ul.copyright
+					li © Untitled. All rights reserved.
+					li
+						| Design: 
+						a(href='http://html5up.net') HTML5 UP
+		// Scripts
+		script(src='assets/js/jquery.min.js')
+		script(src='assets/js/jquery.dropotron.min.js')
+		script(src='assets/js/jquery.scrollgress.min.js')
+		script(src='assets/js/skel.min.js')
+		script(src='assets/js/util.js')
+		//if lte IE 8
+			script(src='assets/js/ie/respond.min.js')
+		script(src='assets/js/main.js')

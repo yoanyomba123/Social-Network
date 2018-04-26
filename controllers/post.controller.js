@@ -2,7 +2,7 @@ const User = require('../models/user');
 const Post = require('../models/post');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
-
+const mongoose = require('mongoose');
 module.exports = {
     addPost,
     processPost,
@@ -34,8 +34,8 @@ function processPost(request, response, next){
     }
     else{
         let post = new Post();
-        console.log(request.user);
-        User.findById({'_id':request.user._id}, function(user, error){
+        
+        User.findById({'_id':request.user._id}, function(error, user){
             if(error){
                 console.log(error);
                 return;
@@ -43,10 +43,17 @@ function processPost(request, response, next){
             if(!user){
                 return new Error("User Does Not Exist");
             } 
-            post.user_id = request.user._id;
+            post.user = request.user._id;
             post.body = request.body.body;
-            post.posted = Date.now;
-            user.posts.push(post);
+
+            user.posts.push(post._id);
+            user.save();
+            
+            console.log("HEHEHEHEHEEH")
+            console.log(user);
+            console.log(user.posts)
+            console.log("HEHEHEHEHEEH")
+
             post.save(function(error){
                 if(error){
                     console.log(error);
@@ -54,7 +61,7 @@ function processPost(request, response, next){
                 }
                 else{
                     request.flash('success', 'Post Added');
-                    response.redirect('/feed');
+                    response.redirect('/myprofile');
                 }
             });
 

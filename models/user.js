@@ -33,16 +33,24 @@ const UserSchema = mongoose.Schema({
         maxlength: 100
     },
     following:[{
-        userId: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     }],
 
     followers:[{
-        userId: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     }],
     posts:[{
         post: mongoose.Schema.Types.ObjectId
-    }]
+    }],
+    num_posts: Number
 
 });
 
+UserSchema.statics = {
+    followUser: function(id, cb){
+        this.findOne({_id: id}).populate("followers").exec(cb);
+    }
+};
 const User = module.exports = mongoose.model('User', UserSchema);

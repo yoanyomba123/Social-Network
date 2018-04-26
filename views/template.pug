@@ -1,5 +1,7 @@
-doctype html
-
+//
+	Alpha by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 html
 	head
 		title Fin-Social
@@ -10,20 +12,11 @@ html
 		link(rel='stylesheet', href='assets/css/main.css')
 		//if lte IE 8
 			link(rel='stylesheet', href='assets/css/ie8.css')
-		link(rel = 'stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
-		link(rel = 'stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
-		link(rel = 'stylesheet' href='/css/style.css')
-		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
-		link(href='https://fonts.googleapis.com/css?family=Montserrat', rel='stylesheet', type='text/css')
-		link(href='https://fonts.googleapis.com/css?family=Lato', rel='stylesheet', type='text/css')
-		link(rel='stylesheet', href='https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css')
-		link(rel='stylesheet', type='text/css', href='https://material.angularjs.org/1.1.5/docs.css')
-        
 	body.landing
 		#page-wrapper
 			// Header
 			header#header.alt
-				nav#nav.sticky-top
+				nav#nav
 					if !user
 						ul
 							li
@@ -50,6 +43,9 @@ html
 								a(href='/portfolio') My Portfolio
 							li
 								a(href='/news') My News
+							li
+								a.button(href='/logout') Logout
+							
 			!= messages('message', locals)
 			if errors  
 				each error, i in errors
