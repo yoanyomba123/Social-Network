@@ -1,0 +1,20 @@
+extends ../profile_template
+
+block content
+    br
+    .container
+        hr
+        br
+        br
+        hr
+        ul.list-group
+            each user, i in users
+                li.list-group-item.card(style="width: 20rem")
+                    form(method='POST', action='/follow/user/'+user._id)
+                        #form-group
+                            h4 #{user.first_name} #{user.last_name}
+                            br
+                            // a(href='/post/'+post._id) #{post.body}
+                            br
+                            input.btn.btn-primary(type='submit', value='Follow')
+    

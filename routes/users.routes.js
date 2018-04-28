@@ -24,6 +24,7 @@ router.get('/myprofile', user.home);
 router.get('/logout', user.logout);
 router.post('/:user/update', user.updateUser);
 router.delete('/:user/delete', user.deleteUser);
-router.get('/users', user.showAllUsers);
+router.get('/network', user.showAllUsers);
 router.get('/:user/posts', user.showPosts);
 router.get('/profile',user.showUserProfile);
+router.post('/follow/user/:id', user.followUser);

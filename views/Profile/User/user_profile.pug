@@ -24,7 +24,7 @@ block content
                 br
                 | Email: #{user.email}
                 br
-                | Posts: #{user.posts.length} |  Followers: #{user.followers.length} | Following: #{user.followers.length}                
+                | Posts: #{user.posts.length} |  Followers: #{user.followers.length} | Following: #{user.following.length}                
         hr
         br
         br
@@ -38,7 +38,11 @@ block content
                     br
         br
         br
+
+        
         hr
+
+        
         ul.list-group
             each post, i in posts
                 li.list-group-item.card
@@ -47,6 +51,21 @@ block content
                     h5 #{post.posted}
                     hr
                     p #{post.body}
+                    for comment, i in post.comments
+                        li.list-group-item
+                            h4 #{comment.commenterName}
+                            |
+                            |
+                            | #{comment.body}
+                    .container(style='width: 100rem;')
+                                form(method='POST', action='/comment/add/'+post._id)
+                                    #form-group
+                                        label.text-center Comment
+                                        textarea.form-control(name='body')
+                                    br
+                                    input.btn.btn-primary(type='submit', value='Submit')
+                                br
+                    br
                     // a(href='/post/'+post._id) #{post.body}
                     br
     

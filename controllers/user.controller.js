@@ -17,7 +17,8 @@ module.exports = {
     deleteUser,
     showPosts,
     showAllUsers,
-    showUserProfile
+    showUserProfile,
+    followUser
   }
 
 
@@ -49,12 +50,12 @@ function home(request, response, next){
             return new Error("User Not Found");
         }
 
-        console.log(user);
+        //console.log(user);
 
         var postsObject = [];
         // find all posts the user wrote
         Post.find({"user":user._id}).then(results => {
-            console.log(results);
+            //console.log(results);
             response.render('Profile/User/user_profile', {
                 user: user,
                 posts: results
@@ -236,11 +237,12 @@ function showPosts(request, result, next){
 // show all users
 function showAllUsers(request, response, next) {
     User.find({}, function (error, users) {
-      if (error){
-          return next(err);
-      }
-        response.render('userlist', {
-            user: req.session.user,
+        if (error){
+            return next(err);
+        }
+
+        response.render('Profile/User/userlist', {
+            user: request.user,
             users: users
         });
     });
@@ -256,4 +258,36 @@ function showUserProfile(request, response, next) {
         }
     	response.render('Profile/profile_template', {user: user});
   });
+}
+
+// follow a user
+function followUser(request, response){
+    console.log(request);
+    let query = {'_id':request.user._id};
+    User.findById(query,function(error, user){
+        if(error){
+            console.log(error);
+            }
+        if(!request.params.id){
+            console.log("User does not exits");
+        }
+        user.following.push(ObjectId(request.params.id));
+
+        // allow user to be added as follower
+        user.save();
+        let query = {'_id': request.params.id};
+        User.findById(query, function(error, user){
+            if( error){
+                console.log(error);
+            }
+            if(!user){
+                console.log("User does not exist");
+            }
+            user.followers.push(ObjectId(request.user._id));
+        });
+
+        console.log(user);
+        response.redirect('/myprofile');
+    });
+
 }

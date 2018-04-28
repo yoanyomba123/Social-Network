@@ -1,17 +1,20 @@
 // imports
 var passport = require('passport');
-const mongoose = require('mongoose');
-const express = require('express');
-const path = require('path');
-const keys = require('./config/keys');
-const database = require('./config/database');
-const expressValidator = require('express-validator');
-const flash = require('connect-flash');
-const session = require('express-session');
+var mongoose = require('mongoose');
+var express = require('express');
+var path = require('path');
+var keys = require('./config/keys');
+var database = require('./config/database');
+var expressValidator = require('express-validator');
+var flash = require('connect-flash');
+var session = require('express-session');
 var cors = require("cors");
 var bodyParser = require("body-parser");
 var request = require("request");
 var parseString = require('xml2js').parseString;
+var stream_node = require('getstream-node');
+var expressLayouts = require('express-ejs-layouts');
+var expressSession = require('express-session');
 
 users = require('./routes/users.routes');
 posts = require('./routes/post.routes');

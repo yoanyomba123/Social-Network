@@ -60,7 +60,7 @@ const PostSchema = mongoose.Schema({
     }
 });
 
-
+/*
 PostSchema.pre("save", function(next){
     if(this.favorites){
         this.favoritesCount = this.favorites.length;
@@ -71,5 +71,5 @@ PostSchema.pre("save", function(next){
     }
     next();
 });
-
+*/
 const post = module.exports = mongoose.model('Post', PostSchema);

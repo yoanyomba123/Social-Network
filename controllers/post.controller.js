@@ -7,7 +7,8 @@ module.exports = {
     addPost,
     processPost,
     deletePost,
-    updatePost
+    updatePost,
+    addComment
 }
 
 // add post
@@ -97,6 +98,54 @@ function updatePost(request, response){
             request.flash('success', 'Article Updated');
             response.redirect('/home');
         }
+    });
+}
+
+
+// add a comment
+function addComment(request, response){
+    console.log("ADDING COMMENT");
+    
+    //create comment object
+    var new_comment = {
+        body: request.body.body,
+        user: mongoose.Types.ObjectId(request.user._id),
+        commenterName: request.user.username,
+        createdAt: Date.now()
+    };
+    
+
+    // generate a query object for posts
+    let query = {'_id': request.params.id};
+
+    Post.findById(query, function(error, post){
+        // error handling
+        if(error){
+            console.log(error);
+            return;
+        }
+        if(!post){
+            return new Error("User Does Not Exist");
+        } 
+        console.log(new_comment);
+        // add comment to corresponding post once found
+        post.comments.push(new_comment);
+
+        console.log(post.comments);
+
+        Post.update(query, post, function(error, post){
+            if(error){
+                console.log(error);
+                return;
+            }
+            else{
+                request.flash('success', 'Comment Added Updated');
+                response.redirect('/myprofile');
+            }
+        });
+ 
+
+        
     });
 }
 
