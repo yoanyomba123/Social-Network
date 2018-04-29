@@ -1,9 +1,53 @@
 const User = require('../models/user');
 const Post = require('../models/post');
+const Comment = require('../models/comments');
+const Follow = require('../models/follow');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
-var ObjectId = require('mongoose').Types.ObjectId;
+var ObjectId = require('mongoose').Types.ObjectId
+var stream_node = require('getstream-node');
+var fs = require('fs');
+var _ = require('underscore');
+var FeedManager = stream_node.FeedManager;
+var StreamMongoose = stream_node.mongoose;
+var StreamBackend = new StreamMongoose.Backend();
 
+/*
+    STREAM ACTIVITIES
+*/
+var enrichActivities = function(body) {
+	var activities = body.results;
+	return StreamBackend.enrichActivities(activities);
+};
+
+var enrichAggregatedActivities = function(body) {
+	var activities = body.results;
+	return StreamBackend.enrichAggregatedActivities(activities);
+};
+
+/*
+    AUTHENTICATION CHECK
+*/
+var ensureAuthenticated = function(request, response, next){
+    if(request.isAuthenticated){
+        return next();
+    }
+    response.redirect('/login');
+}
+
+/*
+    FOLLOWERS CHECK
+*/
+var did_i_follow = function(users, followers) {
+	var followed_users_ids = _.map(followers, function(item) {
+		return item.target.toHexString();
+	});
+	_.each(users, function(user) {
+		if (followed_users_ids.indexOf(user._id.toHexString()) !== -1) {
+			user.followed = true;
+		}
+	});
+};
 
 module.exports = {
     home,
@@ -18,7 +62,12 @@ module.exports = {
     showPosts,
     showAllUsers,
     showUserProfile,
-    followUser
+    followUser,
+    unfollowSomeUser,
+    followSomeUser,
+    getSomeUserProfile,
+    getUserFeed,
+    getNewsFeed
   }
 
 
@@ -56,7 +105,7 @@ function home(request, response, next){
         // find all posts the user wrote
         Post.find({"user":user._id}).then(results => {
             //console.log(results);
-            response.render('Profile/User/user_profile', {
+            response.render('Profile/profile_template', {
                 user: user,
                 posts: results
             });
@@ -90,7 +139,7 @@ function loginAuth(){
 function logout(request, response, next){
     request.logout();
     response.locals.user = null;
-    //request.flash('success', 'You are logged out');
+    request.flash('success', 'You are logged out');
     response.redirect('/login');
 }
 
@@ -236,6 +285,7 @@ function showPosts(request, result, next){
 
 // show all users
 function showAllUsers(request, response, next) {
+    /*
     User.find({}, function (error, users) {
         if (error){
             return next(err);
@@ -244,6 +294,24 @@ function showAllUsers(request, response, next) {
         response.render('Profile/User/userlist', {
             user: request.user,
             users: users
+        });
+    });
+    */
+    User.find({}).lean().exec(function(error, people){
+        Follow.find({user: request.user.id}).exec(function(error, follows){
+            if(error){
+                return next(error);
+            }
+            did_i_follow(people, follows);
+            // remove current user from people array            
+            console.log(people)
+            return response.render('Profile/User/userlist', {
+                'location': 'people',
+                user: request.user,
+                people: people,
+                path: request.url,
+                show_feed: false,
+            })
         });
     });
   }
@@ -256,7 +324,7 @@ function showUserProfile(request, response, next) {
         if (error){
             return next(err);
         }
-    	response.render('Profile/profile_template', {user: user});
+    	response.render('Profile/User/user_profile', {user: user});
   });
 }
 
@@ -290,4 +358,159 @@ function followUser(request, response){
         response.redirect('/myprofile');
     });
 
+}
+
+/*
+    Get Your NewsFeed
+*/
+function getNewsFeed(request, response, next){
+    var flatFeed = FeedManager.getNewsFeeds(request.user.id)['timeline'];
+     flatFeed.get({}).then(enrichActivities).then(function(enrichedActivities){
+         response.render('feed',{
+             location: 'feed',
+             user: request.user,
+             activities: enrichedActivities,
+             path: request.url,
+         });
+     })
+     .catch(next);
+}
+
+/*
+    Get Your Own Profile
+    Get Some Other User's Profile
+*/
+function getUserFeed(request, response, next){
+    var UserFeed = FeedManager.getUserFeed(request.user.id);
+    UserFeed.get({}).then(enrichActivities).then(function(enrichedActivities){
+        console.log(enrichedActivities);
+        response.render('Profile/User/user_profile_view',{
+            location: 'profile',
+            user: request.user,
+            profile_user: request.user,
+            activities: enrichedActivities,
+            path: request.url,
+            show_feed: true
+        })
+    }).catch(next);
+}
+
+function getSomeUserProfile(request, response, next){
+    User.findOne({'_id': request.params.id}, function(error, founduserid){
+        if(error){
+            return next(error);
+        }
+        if(!founduserid){
+            return response.send('User' + request.params.id + 'Not Found');
+        }
+        var flatfeed = FeedManager.getUserFeed(founduserid._id);
+        flatfeed.get({}).then(enrichActivities).then(function(enrichedActivities){
+            console.log(enrichedActivities)
+            response.render('Profile/User/user_profile_view', {
+                location: 'profile',
+                user: founduserid,
+                profile_user_id: founduserid,
+                activities: enrichedActivities,
+                path: request.url,
+                show_feed: true,
+            })
+        });
+
+    });
+}
+
+/*
+    Follow Some User
+    Unfollow Some User
+*/
+function followSomeUser(request, response, next){
+    console.log(request.params.id);
+    User.findById({'_id': request.params.id}, function(error, targetuser){
+        if(targetuser){
+            var followData = {
+                user: request.user._id,
+                target: request.params.id
+            };
+            
+
+            Follow.find(followData, function(error, data){
+                if(error){
+                    return next(error);
+                }
+                if(data.length == 0 || data == undefined){
+                    var follow = new Follow(followData);
+                    follow.save(function(error){
+                        if(error){
+                            return next(error);
+                        }
+                    });
+                    updateUserFollowed(request.params.id, request.user._id)
+                    updateUserFollowing(request.user._id, request.params.id);
+                }
+            });
+            
+               
+            response.redirect('/network');
+        }
+        else{
+            response.status(404).send('Not Found');
+        }
+    }); 
+}
+
+function unfollowSomeUser(request, response, next){
+    Follow.findOne({user: request.user_id, target: request.params.id}, function(error, follow){
+        if(follow){
+            follow.remove(function(error){
+                if(error){
+                    return next(error);
+                }
+            });
+        }
+        else{
+            response.status(404).send('Not Found');
+        }
+    });
+}
+
+function updateUserFollowing(userid, targetid){
+    if(userid == targetid){
+        return;
+    }
+    User.findById({'_id': userid}, function(error, user){
+        if(error){
+            return error;
+        }
+        
+        if(!_.contains(user.following, targetid)){
+            user.following.push(targetid);
+            User.update({'_id': userid}, user, function(error){
+                if(error){
+                    return next(error);
+                }
+            });
+        }
+        
+    });
+}
+
+function updateUserFollowed(userid, targetid){
+    if(userid == targetid){
+        return;
+    }
+
+    User.findById({'_id': userid}, function(error, user){
+        if(error){
+            return error;
+        }
+
+        if(!_.contains(user.followers, targetid)){
+            user.followers.push(targetid);
+            User.update({'_id': userid}, user, function(error){
+                if(error){
+                    return next(error);
+                }
+            });
+        }
+    });
 }

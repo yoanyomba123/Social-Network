@@ -49,12 +49,6 @@ function processPost(request, response, next){
 
             user.posts.push(post._id);
             user.save();
-            
-            console.log("HEHEHEHEHEEH")
-            console.log(user);
-            console.log(user.posts)
-            console.log("HEHEHEHEHEEH")
-
             post.save(function(error){
                 if(error){
                     console.log(error);
@@ -62,7 +56,7 @@ function processPost(request, response, next){
                 }
                 else{
                     request.flash('success', 'Post Added');
-                    response.redirect('/myprofile');
+                    response.redirect('/UserFeed');
                 }
             });
 

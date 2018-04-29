@@ -1,5 +1,12 @@
 const mongoose = require('mongoose');
+const config = require('../config/keys');
+const _ = require("underscore");
+const Schema = mongoose.Schema;
+const Stream_node = require('getstream-node');
 
+var feedManager = Stream_node.FeedManager;
+// connect mongoose to stream.io
+var streamMongoose = Stream_node.mongoose;
 // user schema
 const UserSchema = mongoose.Schema({
     first_name:{
@@ -45,7 +52,9 @@ const UserSchema = mongoose.Schema({
         post: mongoose.Schema.Types.ObjectId
     }],
     num_posts: Number
-
+},
+{
+    collection: 'User',
 });
 
 UserSchema.statics = {
@@ -54,3 +63,4 @@ UserSchema.statics = {
     }
 };
 const User = module.exports = mongoose.model('User', UserSchema);
+streamMongoose.setupMongoose(mongoose);

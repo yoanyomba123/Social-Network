@@ -41,23 +41,28 @@ block content
         hr
         ul.list-group
             each activity, i in activities
-                li.list-group-item.card
-                    h4 User: #{activity.object.user.username}
-                    p  #{activity.object.body}
-                    for comment, i in activity.object.comments
-                        li.list-group-item.float-right
-                            h4 #{comment.commenterName}
-                            |
-                            |
-                            | #{comment.body}
-                    .container(style='width: 100rem;')
-                                    form(method='POST', action='/comment/add/'+ activity.object._id)
-                                        #form-group
-                                            label.text-center Comment
-                                            textarea.form-control(name='body')
+                if activity.object.body
+                    li.list-group-item.card
+                        h4 User: #{activity.object.user.username}
+                        p  #{activity.object.body}
+                        .container(style='width: 100rem;')
+                                        form(method='POST', action='/comment/add/'+ activity.object._id)
+                                            #form-group
+                                                label.text-center Comment
+                                                textarea.form-control(name='body')
+                                            br
+                                            input.btn.btn-primary(type='submit', value='Submit')
                                         br
-                                        input.btn.btn-primary(type='submit', value='Submit')
-                                    br
+                else
+                    if activity.verb == "Follow"
+                        if activity.object.user & activity.object.target
+                            li.list-group-item.card
+                                h4 #{activity.first_name} #{activity.object.user.last_name} 
+                                | Followed #{activity.object.target.first_name} #{activity.object.target.last_name}
+                        else    
+                            li.list-group-item.card
+                                h4 #{activity.first_name} #{activity.last_name} #{activity.verb}ed Someone
+
                 
 
         

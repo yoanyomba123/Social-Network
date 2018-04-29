@@ -15,12 +15,19 @@ var parseString = require('xml2js').parseString;
 var stream_node = require('getstream-node');
 var expressLayouts = require('express-ejs-layouts');
 var expressSession = require('express-session');
-
-users = require('./routes/users.routes');
-posts = require('./routes/post.routes');
+var cookieSession = require('cookie-session');
+var users = require('./routes/users.routes');
+var posts = require('./routes/post.routes');
 // initialize app
 app = express();
 
+// enable the use of cookies in the application
+app.use(
+    cookieSession({
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        keys: [keys.cookieKey]
+    })
+);
 // make use of cors module
 app.use(cors());
 

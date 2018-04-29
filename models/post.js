@@ -1,4 +1,13 @@
 const mongoose = require('mongoose');
+    config = require('../config/keys'),
+    _ = require("underscore"),
+    Schema = mongoose.Schema,
+    Stream_node = require('getstream-node');
+
+var feedManager = Stream_node.FeedManager;
+// connect mongoose to stream.io
+var streamMongoose = Stream_node.mongoose;
+
 // Post schema
 const PostSchema = mongoose.Schema({
     user:{
@@ -58,9 +67,21 @@ const PostSchema = mongoose.Schema({
         type:Date,
         default: Date.now
     }
+},
+{
+    collection: 'Post',
 });
 
-/*
+PostSchema.plugin(streamMongoose.activity);
+PostSchema.statics.pathsToPopulate = function() {
+	return ['user'];
+};
+
+// look into this some more
+PostSchema.methods.activityForeignId = function(){
+    return this.user._id + Date.now();
+}
+
 PostSchema.pre("save", function(next){
     if(this.favorites){
         this.favoritesCount = this.favorites.length;
@@ -71,5 +92,7 @@ PostSchema.pre("save", function(next){
     }
     next();
 });
-*/
+
+
 const post = module.exports = mongoose.model('Post', PostSchema);
+streamMongoose.setupMongoose(mongoose);
