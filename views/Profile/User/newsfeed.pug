@@ -1,0 +1,67 @@
+extends ../profile_template
+
+block content
+    br
+    .container
+        hr
+        ul.list-group
+            li.list-group-item.card
+                h4 User: #{activities.user.username}
+                p  #{activities.body}
+                a(href='/like')
+                    input.btn.btn-danger(type="button", value="Like")
+                |
+                |
+                a(href="/Reply")
+                    input.btn.btn-danger(type="button", value="Reply")
+                hr
+                .container(style='width: 100rem;')
+                                form(method='POST', action='/comment/add/'+ activities._id)
+                                    #form-group
+                                        label.text-center Comment
+                                        textarea.form-control(name='body')
+                                    br
+                                    input.btn.btn-primary(type='submit', value='Submit')
+                                br
+                each comment, i in activities.comments
+                    .container
+                        h4 User: #{comment.commenterName}
+                        .container
+                            .container-fluid
+                                | #{comment.body}
+                                br
+                                br
+                                a(href='/like')
+                                    input.btn.btn-danger(type="button", value="Like")
+                                |
+                                |
+                                a(href="/Reply")
+                                    input.btn.btn-danger(type="button", value="Reply")
+                                hr
+            //
+                .container(style='width: 100rem;')
+                    form(method='POST', action='/comment/add/'+ activity.object._id)
+                        #form-group
+                            label.text-center Comment
+                            textarea.form-control(name='body')
+                        br
+                        input.btn.btn-primary(type='submit', value='Submit')
+                    br
+                    each comment, i in event.object.comments
+                        .container
+                            .container
+                                .container-fluid
+                                    br
+                                    br
+                                    a(href='/like')
+                                        input.btn.btn-danger(type="button", value="Like")
+                                    |
+                                    |
+                                    a(href="/Reply")
+                                        input.btn.btn-danger(type="button", value="Reply")
+                                    hr
+        
+                
+
+        
+    

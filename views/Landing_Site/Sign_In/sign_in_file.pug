@@ -3,18 +3,24 @@ extends ../../template1
 
 
 block content
-    section#banner
-
-    section#main
-        .container.card
-            form(method='POST', action='/login').jumbotron.bg-dark.text-dark
+    section#banner-dark
+        h2 Login
+        hr
+    section#main.container
+        section.box
+            form(method='POST', action='/login')
                 #form-group
-                    label.text-dark Username:
+                    label.float-right Username:
                     input.form-control(name='username', type='text')
                     br
                 #form-group
-                    label.text-dark Password:
+                    label Password:
                     input.form-control(name='password', type='password')
                     br
                 br
                 input.btn.btn-primary(type='submit', value='Submit')
+                |
+                |
+                |
+                a(href='/register')
+                    input.btn.btn-danger(type="Button", value="Don't Have An Account") 

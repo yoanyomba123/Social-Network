@@ -3,13 +3,12 @@ extends ../profile_template
 block content
     br
     .container
-        hr
         br
         br
         hr
         ul.list-group
             each user, i in people
-                li.list-group-item.card(style="width: 50rem")
+                li.list-group-item.card
                     form(method='POST', action='/View/user/'+user._id)
                         #form-group
                             h4 #{user.first_name} #{user.last_name}
@@ -21,4 +20,4 @@ block content
                             |
                             |
                             a(href='/follow/user/'+user._id)
-                                button.btn.btn-danger(type="button") Follow User
+                                input.btn.btn-danger(type="button", value="Follow User")

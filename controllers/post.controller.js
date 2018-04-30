@@ -3,6 +3,9 @@ const Post = require('../models/post');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const mongoose = require('mongoose');
+var stream = require('getstream');
+var streamconfig = require("../getstream");
+var client = stream.connect(streamconfig.apiKey, streamconfig.apiSecret, streamconfig.apiAppId);
 module.exports = {
     addPost,
     processPost,
@@ -46,7 +49,6 @@ function processPost(request, response, next){
             } 
             post.user = request.user._id;
             post.body = request.body.body;
-
             user.posts.push(post._id);
             user.save();
             post.save(function(error){
@@ -55,6 +57,7 @@ function processPost(request, response, next){
                     return;
                 }
                 else{
+                
                     request.flash('success', 'Post Added');
                     response.redirect('/UserFeed');
                 }
@@ -134,7 +137,7 @@ function addComment(request, response){
             }
             else{
                 request.flash('success', 'Comment Added Updated');
-                response.redirect('/myprofile');
+                response.redirect('/UserFeed');
             }
         });
  

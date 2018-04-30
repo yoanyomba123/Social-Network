@@ -1,112 +1,70 @@
 doctype html
 html
-	head
-		title Financial social network
-		link(rel = 'stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
-		link(rel = 'stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
-		link(rel = 'stylesheet' href='assets/css/style.css')
-		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
-		link(href='https://fonts.googleapis.com/css?family=Montserrat', rel='stylesheet', type='text/css')
-		link(href='https://fonts.googleapis.com/css?family=Lato', rel='stylesheet', type='text/css')
-		link(rel='stylesheet', href='https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css')
-		link(rel='stylesheet', type='text/css', href='https://material.angularjs.org/1.1.5/docs.css')
-		link#bootstrap-css(href='//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css', rel='stylesheet')
-		link(href='//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css', rel='stylesheet')
-		link#bootstrap-css(href='//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css', rel='stylesheet')
+    head
+        title Financial social network
+        link(rel = 'stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
+        link(rel = 'stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
+        link(rel = 'stylesheet' href='/css/style.css')
+        link(rel = 'stylesheet' href='assets/css/main.css')
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+        link(href='https://fonts.googleapis.com/css?family=Montserrat', rel='stylesheet', type='text/css')
+        link(href='https://fonts.googleapis.com/css?family=Lato', rel='stylesheet', type='text/css')
+        link(rel='stylesheet', href='https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css')
+        link(rel='stylesheet', type='text/css', href='https://material.angularjs.org/1.1.5/docs.css')
+        
+    body
+        nav#mainNav.navbar.navbar-expand-lg.navbar-light
+            a.navbar-brand.js-scroll-trigger(href='/NewsFeed') Fin-Social
+            button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarResponsive', aria-controls='navbarResponsive', aria-expanded='false', aria-label='Toggle navigation')
+                span.navbar-toggler-icon
+            #navbarResponsive.collapse.navbar-collapse
+                ul.navbar-nav.ml-auto.float-right
+                    li.nav-item
+                        a.nav-link.js-scroll-trigger(href='/NewsFeed') News Feed
+                    li.nav-item
+                        a.nav-link.js-scroll-trigger(href='/UserFeed') My Profile
+                    li.nav-item
+                        a.nav-link.js-scroll-trigger(href='/portfolio') My Portfolio
+                    li.nav-item
+                        a.nav-link.js-scroll-trigger(href='/network') My Network
+                    li.nav-item
+                        a.nav-link.js-scroll-trigger.btn-outline-secondary(href='/logout') Log Out    
 
-	body
-		nav.navbar.navbar-inverse.sidebar(role='navigation')
-			.container-fluid
-				// Brand and toggle get grouped for better mobile display
-				.navbar-header
-					button.navbar-toggle(type='button', data-toggle='collapse', data-target='#bs-sidebar-navbar-collapse-1')
-						span.sr-only Toggle navigation
-						span.icon-bar
-						span.icon-bar
-						span.icon-bar
-					a.navbar-brand(href='#') Fin Social
-				// Collect the nav links, forms, and other content for toggling
-				#bs-sidebar-navbar-collapse-1.collapse.navbar-collapse
-					ul.nav.navbar-nav
-						li
-							a(href='/feed')
-								| News Feed
-								span.pull-right.hidden-xs.showopacity.glyphicon.glyphicon-home(style='font-size:16px;')
-						li
-							a(href='/UserFeed')
-								| Profile
-								span.pull-right.hidden-xs.showopacity.glyphicon.glyphicon-user(style='font-size:16px;')
-						li
-							a(href='/portfolio')
-								| Portfolio
-								span.pull-right.hidden-xs.showopacity.glyphicon.glyphicon-euro(style='font-size:16px;')
-						li
-							a(href='/inbox')
-								| Messages
-								span.pull-right.hidden-xs.showopacity.glyphicon.glyphicon-envelope(style='font-size:16px;')
-						li
-							a(href='/network')/UserFeed
-								| Network
-								span.pull-right.hidden-xs.showopacity.glyphicon.glyphicon-user(style='font-size:16px;')
-						
-						li.dropdown
-							a.dropdown-toggle(href='#', data-toggle='dropdown')
-								| Settings 
-								span.pull-right.hidden-xs.showopacity.glyphicon.glyphicon-cog(style='font-size:16px;')
-								ul.dropdown-menu.forAnimate(role='menu')
-									li
-										a(href='#') Action
-									li
-										a(href='#') Another action
-									li
-										a(href='#') Something else here
-									li.divider
-									li
-										a(href='#') Separated link
-									li.divider
-									li
-										a(href='#') One more separated link
-						li 
-							a(href='/logout')
-								| Logout
-								span.pull-right.hidden-xs.showopacity
-						
-		.main
-			block content
-		
-		script(src='/bower_components/bootstrap/dist/js/boostrap.js')
-		script(src='/bower_components/jquery/dist/jquery.js')
-		script(src='assets/js/style.js')
-		script(src='/js/main.js')
-		script(src='/js/angular.js')
-		script(src='/js/Utilities.js')
-		script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
-		script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
-		script(src='/bower_components/bootstrap/assets/js/ie10-viewport-bug-workaround.js')
-		script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js')
-		script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js')
-		script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js')
-		script(src='https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js')
-		// JQUERY CDN
-		script(src='https://code.jquery.com/jquery-3.2.1.min.js', integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=', crossorigin='anonymous')
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-		// BOOTSTRAP CDN
-		link(rel='stylesheet', type='text/css', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
-		script(type='text/javascript', src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
-		script(src='//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js')
-		script(src='//code.jquery.com/jquery-1.11.1.min.js')
-		// BOOTSTRAP TOGGLE CDN
-		link(href='https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css', rel='stylesheet')
-		script(src='https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js')
-		// AJAX CDN
-		script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
-		// MOMENTS CDN
-		script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.2/moment.js')
-		script(src='https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone.js')
-		script(src='https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-utils.js')
-		script(src='https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-with-data.js')
-		// HIGHCHARTS CDN
-		script(src='https://code.highcharts.com/stock/highstock.js')
-		script(src='https://code.highcharts.com/modules/exporting.js')
+        block content
+        br
+        footer
+            //p Copyright &copy; 2017
+        script(src='/bower_components/bootstrap/dist/js/boostrap.js')
+        script(src='/bower_components/jquery/dist/jquery.js')
+        script(src='/js/main.js')
+        script(src='/js/angular.js')
+        script(src='/js/Utilities.js')
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+        script(src='/bower_components/bootstrap/assets/js/ie10-viewport-bug-workaround.js')
+        script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js')
+        script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js')
+        script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js')
+        script(src='https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js')
+        // JQUERY CDN
+        script(src='https://code.jquery.com/jquery-3.2.1.min.js', integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=', crossorigin='anonymous')
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+        // BOOTSTRAP CDN
+        link(rel='stylesheet', type='text/css', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+        script(type='text/javascript', src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+        // BOOTSTRAP TOGGLE CDN
+        link(href='https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css', rel='stylesheet')
+        script(src='https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js')
+        // AJAX CDN
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+        // MOMENTS CDN
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.2/moment.js')
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone.js')
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-utils.js')
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-with-data.js')
+        // HIGHCHARTS CDN
+        script(src='https://code.highcharts.com/stock/highstock.js')
+        script(src='https://code.highcharts.com/modules/exporting.js')
+                

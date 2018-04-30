@@ -6,12 +6,14 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 var ObjectId = require('mongoose').Types.ObjectId
 var stream_node = require('getstream-node');
+var stream = require('getstream');
 var fs = require('fs');
 var _ = require('underscore');
 var FeedManager = stream_node.FeedManager;
 var StreamMongoose = stream_node.mongoose;
 var StreamBackend = new StreamMongoose.Backend();
-
+var streamconfig = require("../getstream");
+var client = stream.connect(streamconfig.apiKey, streamconfig.apiSecret, streamconfig.apiAppId);
 /*
     STREAM ACTIVITIES
 */
@@ -188,7 +190,7 @@ function authenticateUser(request, response){
     let errors = request.validationErrors();
 
     if(errors){
-        response.render('register', {
+        response.render('Landing_Site/Signup/sign_up_file', {
             errors:errors
         });
     }
@@ -364,12 +366,15 @@ function followUser(request, response){
     Get Your NewsFeed
 */
 function getNewsFeed(request, response, next){
-    var flatFeed = FeedManager.getNewsFeeds(request.user.id)['timeline'];
-     flatFeed.get({}).then(enrichActivities).then(function(enrichedActivities){
-         response.render('feed',{
+    var flatFeed = FeedManager.getNewsFeeds(request.user.id)['aggregated'];
+     flatFeed.get({}).then(enrichAggregatedActivities).then(function(enrichedActivities){
+         console.log("\n\n\n\n\n\n\n");
+         console.log(enrichedActivities);
+
+         response.render('Profile/User/newsfeed',{
              location: 'feed',
              user: request.user,
-             activities: enrichedActivities,
+             activities: enrichedActivities[0].activities[0].object, // FIX THIS
              path: request.url,
          });
      })
@@ -382,6 +387,7 @@ function getNewsFeed(request, response, next){
 */
 function getUserFeed(request, response, next){
     var UserFeed = FeedManager.getUserFeed(request.user.id);
+    console.log(UserFeed);
     UserFeed.get({}).then(enrichActivities).then(function(enrichedActivities){
         console.log(enrichedActivities);
         response.render('Profile/User/user_profile_view',{
@@ -405,7 +411,7 @@ function getSomeUserProfile(request, response, next){
         }
         var flatfeed = FeedManager.getUserFeed(founduserid._id);
         flatfeed.get({}).then(enrichActivities).then(function(enrichedActivities){
-            console.log(enrichedActivities)
+            console.log(enrichedActivities[0].object.user)
             response.render('Profile/User/user_profile_view', {
                 location: 'profile',
                 user: founduserid,

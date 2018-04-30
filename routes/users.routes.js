@@ -98,6 +98,6 @@ router.get('/follow/user/:id',ensureAuthenticated, users.followSomeUser);
 
 // implement this later
 router.get('/unfollow/user/:id',ensureAuthenticated, users.unfollowSomeUser);
-
+router.get('/NewsFeed',ensureAuthenticated, users.getNewsFeed);
 
 

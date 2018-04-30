@@ -3043,7 +3043,7 @@
 
 	#banner-dark{
 		background-attachment: scroll,							fixed;
-		background-image: url('images/ny.png');
+		background-image: url('images/newyork.jpg');
 		background-repeat: no-repeat;
 		background-size: cover;
 		color: #fff;
@@ -3771,3 +3771,7 @@
 
 	}
 	
+	/*  VIDEO */
+.stickytoTop {
+    position: fixed;
+}

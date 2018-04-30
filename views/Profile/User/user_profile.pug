@@ -6,16 +6,6 @@ block content
         .row
             .col
                 img.img-circle(src='assets/css/images/overlay.png', alt='User Photo')
-            .col
-            //
-                .container(style='width: 45rem;')
-                    form(method='POST', action='#/post/add')
-                        #form-group
-                            label.text-center Whats On Your Mind
-                            textarea.form-control(name='body')
-                        br
-                        input.btn.btn-primary(type='submit', value='Submit')
-                    br
         .row
             .col
                 h1.bold
@@ -28,14 +18,13 @@ block content
         hr
         br
         br
-        .container(style='width: 100rem;')
-                    form(method='POST', action='/post/add')
-                        #form-group
-                            label.text-center Whats On Your Mind
-                            textarea.form-control(name='body')
-                        br
-                        input.btn.btn-primary(type='submit', value='Submit')
-                    br
+        form(method='POST', action='/post/add')
+            #form-group
+                label.text-center Whats On Your Mind
+                textarea.form-control(name='body')
+            br
+            input.btn.btn-primary(type='submit', value='Submit')
+        br
         br
         br
         hr
@@ -44,21 +33,18 @@ block content
                 li.list-group-item.card
                     h4 User: #{activity.object.user.username}
                     p  #{activity.object.body}
-                    for comment, i in activity.object.comments
-                        li.list-group-item.float-right
+                    each comment, i in activity.object.comments
+                        li.list-group-item
                             h4 #{comment.commenterName}
                             |
-                            |
-                            | #{comment.body}
-                    .container(style='width: 100rem;')
-                                    form(method='POST', action='/comment/add/'+ activity.object._id)
-                                        #form-group
-                                            label.text-center Comment
-                                            textarea.form-control(name='body')
-                                        br
-                                        input.btn.btn-primary(type='submit', value='Submit')
-                                    br
+                            |   #{comment.body}
+                            form(method='POST', action='/comment/add/'+ activity.object._id)
+                                #form-group
+                                    label.text-center Comment
+                                    textarea.form-control(name='body')
+                                br
+                                input.btn.btn-primary(type='submit', value='Submit')
+                            br
                 
 
         
-    
