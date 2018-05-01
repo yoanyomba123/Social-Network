@@ -48,9 +48,16 @@ var did_i_follow = function(users, followers) {
 		if (followed_users_ids.indexOf(user._id.toHexString()) !== -1) {
 			user.followed = true;
 		}
-	});
+    });
+    
 };
 
+var i_dont_follow = function(users){
+    var people_set = _.filter(users, function(user){
+        return user.followed != "true";
+    });
+    return people_set;
+}
 module.exports = {
     home,
     signup,
@@ -287,30 +294,20 @@ function showPosts(request, result, next){
 
 // show all users
 function showAllUsers(request, response, next) {
-    /*
-    User.find({}, function (error, users) {
-        if (error){
-            return next(err);
-        }
-
-        response.render('Profile/User/userlist', {
-            user: request.user,
-            users: users
-        });
-    });
-    */
     User.find({}).lean().exec(function(error, people){
         Follow.find({user: request.user.id}).exec(function(error, follows){
             if(error){
                 return next(error);
             }
             did_i_follow(people, follows);
-            // remove current user from people array            
-            console.log(people)
+            // remove current user from people array   
+            var people_network = _.reject(people, function(arrItem){ 
+                return arrItem.followed == true || "undefined";
+            });
             return response.render('Profile/User/userlist', {
                 'location': 'people',
                 user: request.user,
-                people: people,
+                people: people_network,
                 path: request.url,
                 show_feed: false,
             })
@@ -370,11 +367,18 @@ function getNewsFeed(request, response, next){
      flatFeed.get({}).then(enrichAggregatedActivities).then(function(enrichedActivities){
          console.log("\n\n\n\n\n\n\n");
          console.log(enrichedActivities);
-
+         console.log("\n\n\n\n\n\n\n");
+        for(var i = 0; i < enrichedActivities.length; i++){
+            for(var j =0; j < enrichedActivities[i].activities.length; j++ ){
+                console.log(enrichedActivities[i].activities[j].object);
+                console.log("\n\n\n\n\n\n\n");
+            }
+        }
+        
          response.render('Profile/User/newsfeed',{
              location: 'feed',
              user: request.user,
-             activities: enrichedActivities[0].activities[0].object, // FIX THIS
+             activities: enrichedActivities,
              path: request.url,
          });
      })
@@ -437,8 +441,6 @@ function followSomeUser(request, response, next){
                 user: request.user._id,
                 target: request.params.id
             };
-            
-
             Follow.find(followData, function(error, data){
                 if(error){
                     return next(error);
@@ -453,15 +455,21 @@ function followSomeUser(request, response, next){
                     updateUserFollowed(request.params.id, request.user._id)
                     updateUserFollowing(request.user._id, request.params.id);
                 }
-            });
-            
-               
+            });   
             response.redirect('/network');
         }
         else{
             response.status(404).send('Not Found');
         }
     }); 
+}
+
+function showFollowers(){
+
+}
+
+function showFollowing(){
+    
 }
 
 function unfollowSomeUser(request, response, next){
