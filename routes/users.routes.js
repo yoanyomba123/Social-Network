@@ -3,9 +3,14 @@ const User = require('../models/user');
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-var ObjectId = require('mongoose').Types.ObjectId,
-    stream_node = require('getstream-node');
+var ObjectId = require('mongoose').Types.ObjectId;
+var stream_node = require('getstream-node');
+var stream = require('getstream');
 var FeedManager = stream_node.FeedManager;
+var config = require('../config/keys');
+
+// instantiate a stream client server side
+var client = stream.connect(config.StreamConfig.apiKey, config.StreamConfig.apiSecret);
 
 var ensureAuthenticated = function(request, response, next){
     if(request.isAuthenticated){
@@ -78,26 +83,24 @@ router.post('/login',  passport.authenticate('local', {
     failureFlash: true 
 }),
     function(request, response) {
-        response.redirect('/myprofile');
+        response.redirect('/UserFeed');
 });
 
-//router.get('/pofile', users.newsFeeds);
-router.get('/myprofile', ensureAuthenticated, users.home);
 router.get('/logout', ensureAuthenticated, users.logout);
 router.post('/:user/update', ensureAuthenticated, users.updateUser);
 router.delete('/:user/delete', ensureAuthenticated, users.deleteUser);
 router.get('/network', ensureAuthenticated, users.showAllUsers);
 router.get('/:user/posts', ensureAuthenticated, users.showPosts);
 router.get('/profile', ensureAuthenticated, users.showUserProfile);
-//router.post('/follow/user/:id',ensureAuthenticated, users.followUser);
 
 // test
 router.get('/UserFeed',ensureAuthenticated, users.getUserFeed);
 router.post('/View/user/:id',ensureAuthenticated, users.getSomeUserProfile);
 router.get('/follow/user/:id',ensureAuthenticated, users.followSomeUser);
+router.get('/NewsFeed',ensureAuthenticated, users.getNewsFeed);
 
 // implement this later
 router.get('/unfollow/user/:id',ensureAuthenticated, users.unfollowSomeUser);
-router.get('/NewsFeed',ensureAuthenticated, users.getNewsFeed);
+router.get('/notifications',ensureAuthenticated, users.getNotifications);
 
 

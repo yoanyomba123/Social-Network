@@ -1,0 +1,13 @@
+extends ../profile_template
+
+block content
+    li.notification-item(style='border: 1px red;')
+    div
+        article
+            figure
+                div
+                img(src= lastFollower.object.user.photoUrl, width='32') 
+                - if(count > 1)
+                    p #{lastFollower.object.user.first_name} #{lastFollower.object.user.last_name} and more followed you
+                - else
+                    p #{lastFollower.object.user.first_name} #{lastFollower.object.user.last_name} followed you

@@ -33,7 +33,8 @@ const UserSchema = mongoose.Schema({
         required: true
     },
     photoUrl:{
-        type: String
+        type: String,
+        default: 'assets/css/images/overlay.png'
     },
     bio:{
         type: String,

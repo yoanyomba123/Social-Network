@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
     Stream_node = require('getstream-node');
 
 var feedManager = Stream_node.FeedManager;
+var feedManagerFactory = Stream_node.feedManagerFactory;
 // connect mongoose to stream.io
 var streamMongoose = Stream_node.mongoose;
 
@@ -31,6 +32,7 @@ followSchema.methods.activityNotify = function() {
 	target_feed = feedManager.getNotificationFeed(this.target._id);
 	return [target_feed];
 };
+
 
 followSchema.methods.activityForeignId = function() {
 	return this.user._id + ':' + this.target._id;

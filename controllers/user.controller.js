@@ -14,6 +14,8 @@ var StreamMongoose = stream_node.mongoose;
 var StreamBackend = new StreamMongoose.Backend();
 var streamconfig = require("../getstream");
 var client = stream.connect(streamconfig.apiKey, streamconfig.apiSecret, streamconfig.apiAppId);
+
+
 /*
     STREAM ACTIVITIES
 */
@@ -59,7 +61,6 @@ var i_dont_follow = function(users){
     return people_set;
 }
 module.exports = {
-    home,
     signup,
     login,
     loginAuth,
@@ -76,54 +77,9 @@ module.exports = {
     followSomeUser,
     getSomeUserProfile,
     getUserFeed,
-    getNewsFeed
+    getNewsFeed,
+    getNotifications,
   }
-
-
-// find user by id
-function findUser(request){
-    User.findById({'_id': ObjectId(request.params('_id'))}, function(error, user){
-        if(error){
-            console.log(error);
-            return;
-        }
-        else{
-            return user;
-        }
-    });
-}
-
-
-
-function home(request, response, next){
-    var query = {'_id':request.user._id};
-    User.findById(query, function(error, user){
-        if(error){
-            console.log(error);
-            console.log("ERROR");
-            return;
-        }
-
-        if(!user){
-            return new Error("User Not Found");
-        }
-
-        //console.log(user);
-
-        var postsObject = [];
-        // find all posts the user wrote
-        Post.find({"user":user._id}).then(results => {
-            //console.log(results);
-            response.render('Profile/profile_template', {
-                user: user,
-                posts: results
-            });
-        
-        });
-       
-    });
-
-}
 
 // define signup function
 function signup(request, response, next){
@@ -138,10 +94,10 @@ function login(request, response, next){
 // login auth
 function loginAuth(){
     passport.authenticate('local', { 
-        failureRedirect: '/home',
+        failureRedirect: '/login',
         failureFlash: true 
     },function(request, response) {
-        response.redirect('/profile');
+        response.redirect('/UserFeed');
 });
 }
 //logout function
@@ -219,8 +175,7 @@ function authenticateUser(request, response){
 // updates a user
 function updateUser(request, response, next){
     User.findOne({'username':request.session.user.username}, function(error, user){
-        if(error){
-            
+        if(error){     
         }
         if(request.body.username){
             user.username = request.body.username;
@@ -235,7 +190,7 @@ function updateUser(request, response, next){
             generatePassword(request, response,user, message);
         }
 
-        user.save(function(error){
+        User.update(user,function(error){
                 if(error){
                     console.log(error);
                     return;
@@ -301,9 +256,11 @@ function showAllUsers(request, response, next) {
             }
             did_i_follow(people, follows);
             // remove current user from people array   
+            
             var people_network = _.reject(people, function(arrItem){ 
-                return arrItem.followed == true || "undefined";
+                return arrItem.followed == "undefined";
             });
+        
             return response.render('Profile/User/userlist', {
                 'location': 'people',
                 user: request.user,
@@ -326,6 +283,28 @@ function showUserProfile(request, response, next) {
     	response.render('Profile/User/user_profile', {user: user});
   });
 }
+// show user notifications
+function getNotifications(request, response, next){
+    var notificationFeed = FeedManager.getNotificationFeed(request.user._id);
+    notificationFeed.get({mark_read: true, mark_see: true}).then(function(body){
+        var activities = body.results;
+        console.log("YOMBAE\n\n\n");
+        if(activities.length == 0){
+            return response.send('');
+        }
+        else{
+            request.user.unseen = 0;
+            return StreamBackend.enrichActivities(activities[0].activities);
+        }
+    }).then(function(enrichedActivities){
+        console.log(enrichActivities);
+        response.render('Profile/User/notifications_follow', {
+            lastFollower: enrichedActivities[0],
+            count: enrichedActivities.length
+        });
+    });
+}
+
 
 // follow a user
 function followUser(request, response){
@@ -423,9 +402,8 @@ function getSomeUserProfile(request, response, next){
                 activities: enrichedActivities,
                 path: request.url,
                 show_feed: true,
-            })
+            });
         });
-
     });
 }
 
@@ -491,6 +469,7 @@ function updateUserFollowing(userid, targetid){
     if(userid == targetid){
         return;
     }
+    
     User.findById({'_id': userid}, function(error, user){
         if(error){
             return error;
@@ -498,6 +477,7 @@ function updateUserFollowing(userid, targetid){
         
         if(!_.contains(user.following, targetid)){
             user.following.push(targetid);
+
             User.update({'_id': userid}, user, function(error){
                 if(error){
                     return next(error);
@@ -520,6 +500,7 @@ function updateUserFollowed(userid, targetid){
 
         if(!_.contains(user.followers, targetid)){
             user.followers.push(targetid);
+           
             User.update({'_id': userid}, user, function(error){
                 if(error){
                     return next(error);

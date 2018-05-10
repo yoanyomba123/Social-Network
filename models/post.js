@@ -2,8 +2,13 @@ const mongoose = require('mongoose');
     config = require('../config/keys'),
     _ = require("underscore"),
     Schema = mongoose.Schema,
-    Stream_node = require('getstream-node');
-
+    Stream_node = require('getstream-node'),
+    stream = require('getstream'),
+    config = require('../config/keys');
+    
+// instantiate a stream client server side
+var client = stream.connect(config.StreamConfig.apiKey, config.StreamConfig.apiSecret);
+    
 var feedManager = Stream_node.FeedManager;
 // connect mongoose to stream.io
 var streamMongoose = Stream_node.mongoose;
@@ -43,6 +48,10 @@ const PostSchema = mongoose.Schema({
             createdAt:{
                 type:Date,
                 default: Date.now
+            },
+            likes:{
+                type:Number,
+                default:0
             }
         },
     ],
@@ -66,8 +75,15 @@ const PostSchema = mongoose.Schema({
     update:{
         type:Date,
         default: Date.now
-    }
-},
+    },
+    likes:{
+        type: Number,
+        default: 0,
+    },
+    likers:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    }]},
 {
     collection: 'Post',
 });
@@ -90,6 +106,8 @@ PostSchema.pre("save", function(next){
     if(this.favorites){
         this.favoriters = this.favorites;
     }
+
+
     next();
 });
 
