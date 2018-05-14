@@ -1,44 +1,75 @@
-extends ../profile_template
+extends UserTemplate
 
 block content
     br
     .container
-        hr
-        ul.list-group
-            -for(var i = 0; i < activities.length; i++)
-                -for(var j =0; j < activities[i].activities.length; j++ )
-                    if activities[i].activities[j].object.body
-                        li.list-group-item.card
-                            h4 User: #{activities[i].activities[j].object.user.username}
-                            p  #{activities[i].activities[j].object.body}
-                            a(href='/like')
-                                input.btn.btn-danger(type="button", value="Like")
-                            |
-                            |
-                            a(href="/Reply")
-                                input.btn.btn-danger(type="button", value="Reply")
-                            hr
-                            .container(style='width: 100rem;')
-                                            form(method='POST', action='/comment/add/'+ activities[i].activities[j].object._id)
-                                                #form-group
-                                                    label.text-center Comment
-                                                    textarea.form-control(name='body')
-                                                br
-                                                input.btn.btn-primary(type='submit', value='Submit')
-                                            br
-                            -for(var k =0; k < activities[i].activities[j].object.comments.length; k++)
-                                .container
-                                    .container-fluid
-                                        h4 User: #{activities[i].activities[j].object.comments[k].commenterName}
-                                        | 
+        .row
+            .col-sm-3
+                .well.card.text-center
+                    p
+                        a(href='/Userfeed') My Profile
+                    img.img-circle.img-responive(src='assets/css/images/overlay.png', alt='User Photo')
+                    hr
+                    .card-body
+                        h5.card-title.text-center #{user.first_name} #{user.last_name}
+                        p.card-text
+                        | This section will be filled in the future with user bio information
+            .col-sm-6
+                .card.list-group-item
+                    .card-header
+                    .card-body
+                        form(method='POST', action='/post/add')
+                            #form-group
+                                label.text-center Share A Though
+                                textarea.form-control(name='body')     
+                            br
+                            input.btn.btn-primary(type='submit', value='Post')
+                br
+                br
+                ul.list-group
+                    -for(var i = 0; i < activities.length; i++)
+                        -for(var j =0; j < activities[i].activities.length; j++ )
+                            if activities[i].activities[j].object.body
+                                li.list-group-item.card
+                                    h4 User: #{activities[i].activities[j].object.user.username}
+                                    p  #{activities[i].activities[j].object.body}
+                                    a(href='/like')
+                                        input.btn.btn-danger(type="button", value="Like")
+                                    |
+                                    |
+                                    a(href="/Reply")
+                                        input.btn.btn-danger(type="button", value="Reply")
+                                    hr    
+                                    form(method='POST', action='/comment/add/'+ activities[i].activities[j].object._id)
+                                        #form-group
+                                            label.text-center Comment
+                                            input.form-control(name='body')
+                                            
+                                        br
+                                        input.btn.btn-primary(type='submit', value='Submit')
+                                    br
+                                    -for(var k =0; k < activities[i].activities[j].object.comments.length; k++)
                                         .container
-                                            | #{activities[i].activities[j].object.comments[k].body}
-                                        br
-                                        br
-                                        a(href='/like')
-                                            input.btn.btn-danger(type="button", value="Like")
-                                        |
-                                        |
-                                        a(href="/Reply")
-                                            input.btn.btn-danger(type="button", value="Reply")
-                                        hr                
+                                            .container
+                                                h4 User: #{activities[i].activities[j].object.comments[k].commenterName}
+                                                | 
+                                                .container
+                                                    | #{activities[i].activities[j].object.comments[k].body}
+                                                br
+                                                a(href='/like')
+                                                    input.btn.btn-danger(type="button", value="Like")
+                                                |
+                                                |
+                                                a(href="/Reply")
+                                                    input.btn.btn-danger(type="button", value="Reply")  
+                br
+                br  
+                |
+                |
+            .col-sm-3.well
+                .card
+                    .card-header
+                    .card-body
+                        h5.card-title Card title
+                        p.card-text
+                        | This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.

@@ -1,0 +1,57 @@
+doctype html
+html(lang='en')
+	head
+		title Bootstrap Example
+		meta(charset='utf-8')
+		meta(name='viewport', content='width=device-width, initial-scale=1')
+		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+        
+		
+		style.
+			/* Set black background color, white text and some padding */
+			footer {
+			background-color: #555;
+			color: white;
+			padding: 15px;
+			}
+	body
+		nav.navbar.navbar-inverse
+			.container-fluid
+				.navbar-header
+					button.navbar-toggle(type='button', data-toggle='collapse', data-target='#myNavbar')
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+					a.navbar-brand(href='/Newsfeed') Fin-Social
+				#myNavbar.collapse.navbar-collapse
+					ul.nav.navbar-nav
+						li.active
+							a(href='/Newsfeed') News Feed
+						li.active
+							a(href='/network') My Network
+						li.active
+							a(href='/portfolio') My Portfolio
+						li
+							a(href='#') Messages
+					form.navbar-form.navbar-right(role='search')
+						.form-group.input-group
+							input.form-control(type='text', placeholder='Search..')
+							span.input-group-btn
+								button.btn.btn-default(type='button')
+									span.glyphicon.glyphicon-search
+					ul.nav.navbar-nav.navbar-right
+						li
+							a(href='/Userfeed')
+								span.glyphicon.glyphicon-user
+								|  My Account
+		block content
+		footer
+			p Copyright &copy; 2017
+		script(src='/bower_components/bootstrap/dist/js/boostrap.js')
+		script(src='/bower_components/jquery/dist/jquery.js')
+		script(src='/js/main.js')
+		script(src='/js/angular.js')
+		script(src='/js/Utilities.js')
+		script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+		script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+        

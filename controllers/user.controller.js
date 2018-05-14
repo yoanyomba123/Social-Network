@@ -259,7 +259,11 @@ function showPosts(request, result, next) {
   });
 }
 
-// show all users that aren't the current user and that the user does not follow
+/*
+@Description : This Method allows us to see all user presently in the network. We do not show users that we follow already or ourself
+@Access: Private - Must Be logged In 
+@Route: /myNetwork
+*/
 function showAllUsers(request, response, next) {
   User.find({})
     .lean()
@@ -270,11 +274,12 @@ function showAllUsers(request, response, next) {
         }
         did_i_follow(people, follows);
 
-        // remove current user from people array
+        // remove current user from people array as well as any user we follow
         var people_network = _.reject(people, function(arrItem) {
           return arrItem.followed == true || arrItem._id == request.user.id;
         });
 
+        console.log(request.user);
         return response.render("Profile/User/userlist", {
           location: "people",
           user: request.user,
@@ -300,6 +305,7 @@ function showUserProfile(request, response, next) {
     }
   );
 }
+
 // show user notifications
 function getNotifications(request, response, next) {
   var notificationFeed = FeedManager.getNotificationFeed(request.user._id);
@@ -391,18 +397,34 @@ function getNewsFeed(request, response, next) {
 function getUserFeed(request, response, next) {
   var UserFeed = FeedManager.getUserFeed(request.user.id);
   console.log(UserFeed);
+
   UserFeed.get({})
     .then(enrichActivities)
     .then(function(enrichedActivities) {
       console.log(enrichedActivities);
-      response.render("Profile/User/user_profile_view", {
-        location: "profile",
-        user: request.user,
-        profile_user: request.user,
-        activities: enrichedActivities,
-        path: request.url,
-        show_feed: true
-      });
+      User.find({})
+        .lean()
+        .exec(function(error, people) {
+          Follow.find({ user: request.user.id }).exec(function(error, follows) {
+            if (error) {
+              return next(error);
+            }
+            did_i_follow(people, follows);
+            // remove current user from people array as well as any user we follow
+            var following = _.reject(people, function(arrItem) {
+              return arrItem.followed != true || arrItem._id == request.user.id;
+            });
+            response.render("Profile/User/user_profile_view", {
+              location: "profile",
+              user: request.user,
+              following: following,
+              profile_user: request.user,
+              activities: enrichedActivities,
+              path: request.url,
+              show_feed: true
+            });
+          });
+        });
     })
     .catch(next);
 }
@@ -421,14 +443,34 @@ function getSomeUserProfile(request, response, next) {
       .then(enrichActivities)
       .then(function(enrichedActivities) {
         console.log(enrichedActivities[0].object.user);
-        response.render("Profile/User/user_profile_view", {
-          location: "profile",
-          user: founduserid,
-          profile_user_id: founduserid,
-          activities: enrichedActivities,
-          path: request.url,
-          show_feed: true
-        });
+        User.find({})
+          .lean()
+          .exec(function(error, people) {
+            Follow.find({ user: founduserid._id }).exec(function(
+              error,
+              follows
+            ) {
+              if (error) {
+                return next(error);
+              }
+              did_i_follow(people, follows);
+              // remove current user from people array as well as any user we follow
+              var following = _.reject(people, function(arrItem) {
+                return (
+                  arrItem.followed != true || arrItem._id == request.user.id
+                );
+              });
+              response.render("Profile/User/user_profile_view", {
+                location: "profile",
+                user: founduserid,
+                following: following,
+                profile_user: founduserid,
+                activities: enrichedActivities,
+                path: request.url,
+                show_feed: true
+              });
+            });
+          });
       });
   });
 }

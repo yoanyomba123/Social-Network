@@ -1,4 +1,4 @@
-extends ../profile_template
+extends UserTemplate
 
 block content
     br
@@ -25,65 +25,79 @@ block content
                 | Email: #{user.email}
                 br
                 | Posts: #{user.posts.length} |  Followers: #{user.followers.length} | Following: #{user.following.length}                
-        hr
-        br
-        br
-        .container(style='width: 100rem;')
-                    form(method='POST', action='/post/add')
-                        #form-group
-                            label.text-center Whats On Your Mind
-                            textarea.form-control(name='body')
-                        br
-                        input.btn.btn-primary(type='submit', value='Submit')
+                hr
+        .row
+            .col-sm-8
+                br
+                br
+                form(method='POST', action='/post/add')
+                    #form-group
+                        label.text-center Whats On Your Mind
+                        input.form-control(name='body')
                     br
-        br
-        br
-        hr
-        ul.list-group
-            each activity, i in activities
-                if activity.object.body
-                    li.list-group-item.card
-                        h4 User: #{activity.object.user.username}
-                        p  #{activity.object.body}
-                        a(href='/like')
-                            input.btn.btn-danger(type="button", value="Like")
-                        |
-                        |
-                        a(href="/Reply")
-                            input.btn.btn-danger(type="button", value="Reply")
-                        hr
-                        .container(style='width: 100rem;')
-                                        form(method='POST', action='/comment/add/'+ activity.object._id)
-                                            #form-group
-                                                label.text-center Comment
-                                                textarea.form-control(name='body')
-                                            br
-                                            input.btn.btn-primary(type='submit', value='Submit')
-                                        br
-                        each comment, i in activity.object.comments
-                            .container
-                                h4 User: #{comment.commenterName}
-                                .container
-                                    .container-fluid
-                                        | #{comment.body}
-                                        br
-                                        br
-                                        a(href='/like')
-                                            input.btn.btn-danger(type="button", value="Like")
-                                        |
-                                        |
-                                        a(href="/Reply")
-                                            input.btn.btn-danger(type="button", value="Reply")
-                                        hr
-                else
-                    if activity.verb == "Follow"
-                        if activity.object.user & activity.object.target
+                    input.btn.btn-primary(type='submit', value='Submit')
+                br
+                br
+                br
+                hr
+                ul.list-group
+                    each activity, i in activities
+                        if activity.object.body
                             li.list-group-item.card
-                                h4 #{activity.first_name} #{activity.object.user.last_name} 
-                                | Followed #{activity.object.target.first_name} #{activity.object.target.last_name}
-                        else    
-                            li.list-group-item.card
-                                h4 #{activity.first_name} #{activity.last_name} #{activity.verb}ed #{activity.object.target.first_name} #{activity.object.target.last_name}
+                                h4 User: #{activity.object.user.username}
+                                p  #{activity.object.body}
+                                a(href='/like')
+                                    input.btn.btn-danger(type="button", value="Like")
+                                |
+                                |
+                                a(href="/Reply")
+                                    input.btn.btn-danger(type="button", value="Reply")
+                                hr
+                                form(method='POST', action='/comment/add/'+ activity.object._id)
+                                    #form-group
+                                        label.text-center Comment
+                                        textarea.form-control(name='body')
+                                    br
+                                    input.btn.btn-primary(type='submit', value='Submit')
+                                hr
+                                br
+                                each comment, i in activity.object.comments
+                                    .container
+                                        h4 User: #{comment.commenterName}
+                                        .container
+                                            .container-fluid
+                                                | #{comment.body}
+                                                br
+                                                br
+                                                a(href='/like')
+                                                    input.btn.btn-danger(type="button", value="Like")
+                                                |
+                                                |
+                                                a(href="/Reply")
+                                                    input.btn.btn-danger(type="button", value="Reply")
+                                                hr
+                        else
+                            if activity.verb == "Follow"
+                                if activity.object.user & activity.object.target
+                                    li.list-group-item.card
+                                        h4 #{activity.first_name} #{activity.object.user.last_name} 
+                                        | Followed #{activity.object.target.first_name} #{activity.object.target.last_name}
+                                else    
+                                    li.list-group-item.card
+                                        h4 #{activity.first_name} #{activity.last_name} #{activity.verb}ed #{activity.object.target.first_name} #{activity.object.target.last_name}
+                        br
+                        br
+            .col-sm-3
+                ul.list-group.card
+                    each user, i in following
+                        li.list-group-item.card.text-center
+                            #form-group.card-body
+                                a(href='/View/user/'+user._id)
+                                    h4.card-title #{user.first_name} #{user.last_name}
+                                br
+                                h5.card-body
+                                |   Bio:
+                        br
 
                 
 

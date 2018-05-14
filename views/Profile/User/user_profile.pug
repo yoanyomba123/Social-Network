@@ -1,4 +1,4 @@
-extends ../profile_template
+extends UserTemplate
 
 block content
     br
@@ -28,23 +28,25 @@ block content
         br
         br
         hr
-        ul.list-group
-            each activity, i in activities
-                li.list-group-item.card
-                    h4 User: #{activity.object.user.username}
-                    p  #{activity.object.body}
-                    each comment, i in activity.object.comments
-                        li.list-group-item
-                            h4 #{comment.commenterName}
-                            |
-                            |   #{comment.body}
-                            form(method='POST', action='/comment/add/'+ activity.object._id)
-                                #form-group
-                                    label.text-center Comment
-                                    textarea.form-control(name='body')
+    .row
+        .col-sm-8
+            ul.list-group
+                each activity, i in activities
+                    li.list-group-item.card
+                        h4 User: #{activity.object.user.username}
+                        p  #{activity.object.body}
+                        each comment, i in activity.object.comments
+                            li.list-group-item
+                                h4 #{comment.commenterName}
+                                |
+                                |   #{comment.body}
+                                form(method='POST', action='/comment/add/'+ activity.object._id)
+                                    #form-group
+                                        label.text-center Comment
+                                        textarea.form-control(name='body')
+                                    br
+                                    input.btn.btn-primary(type='submit', value='Submit')
                                 br
-                                input.btn.btn-primary(type='submit', value='Submit')
-                            br
                 
 
         
